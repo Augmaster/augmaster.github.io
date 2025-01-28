@@ -400,7 +400,7 @@ iframe {
   background-color: var(--primary-bg-color);
 }
 
-/* Works */
+/* Projects Section */
 .projects {
   padding: 7rem 0;
   background-color: var(--white-color);
@@ -408,48 +408,133 @@ iframe {
 
 .projects-title {
   text-align: center;
+  margin-bottom: 3rem;
+  color: var(--primary-accent);
 }
 
+/* Flexbox Layout for Project Tiles */
 .projects-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 30px; /* Adds spacing between project tiles */
 }
 
+/* Project Tile */
 .project-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 510px;
+  background: var(--primary-accent);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Project Image */
+.project-img {
+  width: 100%;
+  border-radius: 5px;
+  transition: none;
+}
+
+/* Project Caption (Title and Subtitle) */
+.project-caption {
+  text-align: center;
+  padding: 15px 0; /* Adds spacing between the image and the title */
+}
+
+.project-caption h5 {
+  font-size: 1.5rem;
+  color: var(--white-color);
+  margin-bottom: 5px; /* Space between title and subtitle */
+}
+
+.project-caption p {
+  font-size: 1rem;
+  color: var(--white-color);
+  max-width: 90%; /* Ensures text doesn't stretch too much */
+  margin: 0 auto; /* Center the text */
+}
+
+/* Project Description */
+.project-description {
+  margin-top: 15px;
+  text-align: justify; /* Ensures full width */
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  width: 100%;
+}
+
+.project-description p {
+  font-size: 1rem;
+  color: var(--white-color);
+  line-height: 1.5;
+  text-align: justify; /* Ensures text stretches from left to right */
+}
+
+
+/* Certifications and Online Courses */
+.certifs {
+  padding: 7rem 0;
+  background-color: var(--primary-bg-color); /* Darker background for contrast */
+}
+
+.certifs-title {
+  text-align: center;
+  color: var(--primary-accent); /* Highlighted title color */
+}
+
+.certifs-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem; /* Add spacing between items */
+}
+
+.certif-box {
   position: relative;
   overflow: hidden;
   display: block;
   max-width: 510px;
+  background-color: var(--white-color); /* Card background */
+  border-radius: 10px; /* Rounded corners for a modern look */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
 }
 
-.project-box a {
+.certif-box a {
   display: inline-block;
+  text-decoration: none;
+  color: inherit;
 }
 
-.project-box:hover .project-mask {
+.certif-box:hover .certif-mask {
   opacity: 1;
   visibility: visible;
 }
 
-.project-box:hover .project-mask .project-caption {
+.certif-box:hover .certif-mask .certif-caption {
   bottom: 30px;
   opacity: 1;
 }
 
-.project-box:hover .project-img {
+.certif-box:hover .certif-img {
   transform: scale(1.1);
   transition: all 2s cubic-bezier(0.23, 1, 0.32, 1) 0s;
   width: 100%;
 }
 
-.project-img {
+.certif-img {
   transform: scale(1);
   width: 100%;
   transition: all 2s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+  border-bottom: 2px solid var(--secondary-accent); /* Add a border for separation */
 }
 
-.project-mask {
+.certif-mask {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
   height: 100%;
   position: absolute;
@@ -462,16 +547,17 @@ iframe {
   overflow: hidden;
 }
 
-.project-mask p {
+.certif-mask p {
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 1.5px;
   font-weight: 400;
   margin-top: 0;
   text-align: left;
+  color: var(--white-color); /* Text inside the mask */
 }
 
-.project-mask .project-caption {
+.certif-mask .certif-caption {
   position: absolute;
   bottom: -60px;
   left: 0;
@@ -482,55 +568,37 @@ iframe {
   opacity: 0;
 }
 
-.project-mask p {
+.certif-mask p {
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 1.5px;
   font-weight: 400;
   margin-top: 0;
   text-align: left;
 }
 
+
 /* Contact */
 .contact {
   padding: 7rem 0;
   text-align: center;
+  background-color: var(--primary-accent);
 }
 
 .contact-content {
   font-size: clamp(1rem, 0.964rem + 0.18vw, 1.125rem);
-  color: var(--supportive-text-color);
+  color: var(--white-color);
   margin: 0 auto 20px;
 }
 
-.contact form {
-  max-width: 500px;
-  margin: 20px auto;
-  text-align: center;
+h4.title{
+  color: var(--white-color);
+  margin-bottom: 0px;
 }
 
-.contact form .input-box {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.contact form .input-box input,
-.contact form textarea {
-  width: 100%;
-  padding: 15px;
-  font-size: 15px;
-  color: var(--gray-text-color);
-  border: 1px solid var(--gray-color-2);
-  margin: 7px 0;
-}
-
-.contact form .input-box input {
-  width: 100%;
-}
-
-.contact form textarea {
-  resize: none;
+a.mail-contact{
+  text-decoration: underline;
+  color: var(--white-color);
 }
 
 .contact-button {
