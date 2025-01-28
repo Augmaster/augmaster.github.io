@@ -410,7 +410,9 @@ iframe {
   position: relative;
   overflow: hidden;
   display: block;
-  max-width: 510px;
+  max-width: 300px; /* Constrain the tile width */
+  height: auto; /* Adjust dynamically based on content */
+  margin: 0 15px; /* Add spacing between tiles */
 }
 
 .education-box a {
@@ -423,21 +425,41 @@ iframe {
   visibility: visible;
 }
 
+.education-mask {
+  background: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.education-mask .education-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 15px;
+  right: 15px;
+  text-align: center;
+  color: var(--white-color);
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s ease, bottom 0.3s ease;
+}
+
 .education-box:hover .education-mask .education-caption {
   bottom: 30px;
   opacity: 1;
 }
 
-.education-box:hover .education-img {
-  transform: scale(1.1);
-  transition: all 2s cubic-bezier(0.23, 1, 0.32, 1) 0s;
-  width: 100%;
-}
-
 .education-img {
-  transform: scale(1);
   width: 100%;
-  transition: all 2s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+  height: 300px; /* Set a fixed height for the images */
+  object-fit: cover; /* Ensure the images maintain aspect ratio while filling the box */
+  border-radius: 5px;
+  transition: transform 0.3s ease; /* Faster and subtle hover effect */
 }
 
 /* Mask and Caption */
