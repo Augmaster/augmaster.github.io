@@ -1,5 +1,14 @@
 [
   {
+    "title": "Disk Analysis & Autopsy",
+    "category": "Digital Forensics",
+    "difficulty": "Medium",
+    "date": "2025-01-06",
+    "link": "pages/disk_autopsy.html",
+    "image": "img/writeups/autopsy.png",
+    "description": "Ready for a challenge? Use Autopsy to investigate artifacts from a disk image."
+  },
+  {
     "title": "Vulnerability Capstone",
     "category": "Vulnerability Research",
     "difficulty": "Easy",

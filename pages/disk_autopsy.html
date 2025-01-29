@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disk Analysis & Autopsy</title>
+    
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/media.css" />
+    <link rel="stylesheet" href="../css/writeups.css" />
+    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script defer src="../js/writeups.js"></script>
+</head>
+
+<body class="left-aligned-hero">
+
+    <!-- Navbar Placeholder -->
+    <div id="nav-placeholder"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content" class="fade-in">
+      
+      <!-- Hero Section -->
+      <section id="home" class="hero">
+        <div class="container container-lg">
+            <a href="../writeups.html" class="back-arrow" data-aos="fade-right" data-aos-duration="1000">
+                ← Back to Writeups
+            </a>
+            <div class="hero-content">
+                <div class="hero-image" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="../img/writeups/autopsy.png" alt="Disk Analysis & Autopsy" />
+                </div>
+                <h1 class="hero-heading" data-aos="fade-up" data-aos-duration="1200">Disk Analysis & Autopsy</h1>
+                <p class="writeup-meta" data-aos="fade-up" data-aos-duration="1400">
+                    <strong>Category:</strong> Digital Forensics | <strong>Difficulty:</strong> Medium | <strong>Date:</strong> Jan 06, 2025
+                </p>
+                <p class="writeup-summary" data-aos="fade-up" data-aos-duration="1600">
+                    Investigate a Windows 10 disk image using Autopsy to uncover key forensic artifacts.
+                </p>
+            </div>
+        </div>
+      </section>
+
+      <!-- Writeup Content -->
+      <section id="writeup-content" class="writeup-content">
+        <div class="container">
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Introduction</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            In this challenge, we used <strong>Autopsy</strong> to analyze a Windows 10 disk image. The goal was to extract forensic artifacts, 
+            including system information, user accounts, network details, and potential security threats.
+          </p>
+
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 1: Loading the Disk Image</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            The forensic image was loaded into <strong>Autopsy</strong> using the provided .aut case file. After ensuring the correct disk image path,
+            we examined key system files to extract details.
+          </p>
+          <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              MD5 Hash: 3f08c518adb3b5c1359849657a9b2079
+            </code>
+          </pre>
+
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 2: System Information</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            Extracting system metadata, we found:
+          </p>
+          <ul data-aos="fade-right" data-aos-duration="1200">
+            <li>Computer Name: <strong>DESKTOP-0R59DJ3</strong></li>
+            <li>IP Address: <strong>192.168.130.216</strong></li>
+            <li>MAC Address: <strong>08-00-27-2c-c4-b9</strong></li>
+            <li>Network Adapter: <strong>Intel(R) PRO/1000 MT Desktop Adapter</strong></li>
+          </ul>
+
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 3: User Accounts & Activity</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            We identified all user accounts present on the system:
+          </p>
+          <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              H4S4N, joshwa, keshav, sandhya, shreya, sivapriya, srini, suba
+            </code>
+          </pre>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            The last logged-in user was: <strong>sivapriya</strong>
+          </p>
+
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 4: Suspicious Activity</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            A flagged YARA rule file led to the discovery of a hacking tool:
+          </p>
+          <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              Author: Benjamin DELPY (gentilkiwi)
+              Tools Found: Lazagne, Mimikatz
+            </code>
+          </pre>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            A user also attempted to exploit a domain controller using an archive named:
+            <strong>2.2.0 20200918 Zerologon encrypted.zip</strong>
+          </p>
+
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Conclusion</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            This challenge reinforced essential <strong>digital forensics</strong> skills, including:
+            <ul>
+              <li>Using <strong>Autopsy</strong> to extract and analyze disk artifacts</li>
+              <li>Identifying suspicious user activity and security threats</li>
+              <li>Extracting and verifying system and network information</li>
+              <li>Detecting hacking tools and unauthorized privilege escalation attempts</li>
+            </ul>
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="../js/components.js"></script>
+    <script type="module" src="../js/main.js"></script>
+
+    <script>
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("content").classList.add("fade-in-active");
+      });
+    </script>
+
+</body>
+</html>
