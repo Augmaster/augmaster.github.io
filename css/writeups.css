@@ -86,6 +86,23 @@
   color:var(--supportive-text-color);
 }
 
+/* Default: Center hero content on all pages */
+.hero-content h1 {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hero-content h1{
+    align-items: center;
+  }
+
+  .left-aligned-hero .hero-image {
+    display: flex;
+    justify-content: center; /* Centers the image */
+    margin-bottom: 15px;
+  }
+
+
 /* ==========================
    🏆 Writeups Section (Grid Display)
    ========================== */
@@ -228,3 +245,11 @@ pre code {
     color: var(--supportive-text-color);
     margin-top: 5px;
 }
+
+@media screen and (max-width: 720px) {
+    .hero-content,
+    .left-aligned-hero .hero-content {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
