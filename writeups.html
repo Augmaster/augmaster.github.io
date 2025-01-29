@@ -15,6 +15,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script defer src="js/writeups.js"></script> <!-- Script to load writeups dynamically -->
+
   </head>
 
   <body>
@@ -31,7 +33,7 @@
           <nav id="nav" class="nav">
             <ul class="nav-list" data-aos="fade-down" data-aos-duration="1000">
               <li class="nav-item">
-                <a href="index.html" class="nav-link active">Home</a>
+                <a href="index.html" class="nav-link">Home</a>
               </li>
               <li class="nav-item">
                 <a href="index.html#about" class="nav-link">About</a>
@@ -43,7 +45,7 @@
                 <a href="index.html#projects" class="nav-link">Projects</a>
               </li>
               <li class="nav-item">
-                <a href="writeups.html" class="nav-link">Writeups</a>
+                <a href="writeups.html" class="nav-link active">Writeups</a>
               </li>
               <li class="nav-item">
                 <a href="index.html#contact" class="nav-link">Contact</a>
@@ -70,13 +72,13 @@
           data-aos-delay="500"
           data-aos-duration="1000"
         >
-          <div class="hero-content">
-            <h1 class="hero-heading">Writeups</h1>
+        <div class="hero-content">
+          <h1 class="hero-heading">Writeups</h1>
             <span class="hero-heading-subtitle writeups-subtitle"
               >Challenges are from <a href="https://tryhackme.com/r/hacktivities/challenges">TryHackMe Website</a></span
             >
             <div>
-              <a href="index.html#home" target="_blank" class="btn">My Portfolio</a>
+              <a href="index.html#home" class="btn">My Portfolio</a>
               <a href="index.html#contact" class="btn btn-white">Contact Me</a>
             </div>
           </div>
@@ -91,73 +93,17 @@
       </div>
     </section>
 
-    <section id="projects" class="projects">
-      <div class="container container-lg">
-        <div class="projects-title">
-          <h2 class="title">Challenges</h2>
+    <!-- Writeups Section -->
+    <section id="writeups" class="writeups">
+      <div class="container">
+        <div class="writeups-title" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+          <h2 class="title">Recent Challenges</h2>
         </div>
-
-        <div class="projects-row">
-        <div
-          class="project-box"
-          data-aos="fade-zoom-in"
-          data-aos-easing="ease-in-out"
-          data-aos-duration="1000"
-        >
-          <a href="#!">
-            <img class="project-img" src="img/works/digital_forensics.png" alt="Finance Dashboard" />
-            <div class="project-mask">
-              <div class="project-caption">
-                <h5 class="white">MSc Project</h5>
-                <p class="white">From Data to Justice: Enhancing Forensic Tool Reliability Through Standardized Testing</p>
-              </div>
-            </div>
-          </a>
-          <div class="project-description">
-            <p>
-              This project enhances digital forensic tool reliability by designing a standardized 
-              synthetic dataset that simulates real-world forensic scenarios, including deleted files, 
-              fragmented data, and metadata manipulation. By testing forensic tools across diverse 
-              file systems (APFS, EXT4, NTFS), it aims to identify performance inconsistencies and 
-              propose a framework for standardized testing, improving transparency and trust in 
-              digital forensic investigations.
-            </p>
-          </div>
-        </div>
-
-        <div
-        class="project-box"
-        data-aos="fade-zoom-in"
-        data-aos-easing="ease-in-out"
-        data-aos-duration="1000"
-      >
-        <a href="https://github.com/Augmaster/Augmaster.github.io/tree/main/Projects/SpeechRecognitionEmotionAnalyser" target="_blank">
-          <img class="project-img" src="img/works/speech_recognition.png" alt="Speech Recognition Project" />
-          <div class="project-mask">
-            <div class="project-caption">
-              <h5 class="white">Personal Project</h5>
-              <p class="white">NLP-Based Tool for Multi-Language Transcription and Translation</p>
-            </div>
-          </div>
-        </a>
-        <div class="project-description">
-          <p>
-            This project leverages Natural Language Processing to generate transcripts from live speeches,
-            YouTube videos, and downloaded video files. With multi-language support, it provides accurate 
-            translations, making it an essential tool for live events, classes, and global audiences. 
-            Future developments include a custom GUI for switching modes (YouTube, live speech, downloaded video) 
-            and advanced features like sentiment analysis to evaluate speech emotion scores.
-          </p>
-          <p><strong>Technologies Used:</strong> NLTK, Pandas, NumPy, AssemblyAI, GoogleTranslator, PyTube</p>
-        </div>
-      </div>
-
+        <div class="writeups-grid" id="writeups-container">
+          <!-- JavaScript will load writeups here -->
         </div>
       </div>
     </section>
-
-
- 
 
     <footer class="footer">
       <div class="container">
@@ -165,7 +111,7 @@
           <div class="contact-content">
             <h4 class="title">Contact</h4>
             <p>
-              You can conact me via email at:
+              You can contact me via email at:
               <br />
               <a class="mail-contact" href="mailto:augustin.renard77@gmail.com">augustin.renard77@gmail.com</a>
   

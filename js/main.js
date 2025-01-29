@@ -65,3 +65,16 @@ window.addEventListener('load', function () {
     iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
   };
 });
+
+window.addEventListener("scroll", function () {
+  const header = document.getElementById("header");
+  const body = document.body;
+
+  if (window.scrollY > 50) {
+    header.classList.add("header-sticky");
+    body.classList.add("header-shrink");
+  } else {
+    header.classList.remove("header-sticky");
+    body.classList.remove("header-shrink");
+  }
+});

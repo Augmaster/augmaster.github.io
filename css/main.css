@@ -25,10 +25,24 @@ html {
   overflow-x: hidden;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px; /* Matches the header height */
+  background-color: rgba(10, 15, 13, 0.95); /* Same as header */
+  z-index: 999; /* Below the header */
+}
+
 body {
   color: var(--main-text-color);
   font-family: "Poppins", sans-serif;
   letter-spacing: -0.15px;
+  background-color: var(--primary-bg-color); /* Same as header */
+  padding-top: 90px; /* Adjust for sticky header */
+
 }
 
 .container {
@@ -132,14 +146,16 @@ h5 {
 
 /* Header */
 .header {
-  z-index: 100;
-  background-color: transparent;
+  z-index: 1000; /* Ensure it stays above everything */
+  background-color: rgba(10, 15, 13, 0.95); /* Slight transparency */
+  backdrop-filter: blur(8px); /* Optional blur effect */
   height: 90px;
   width: 100%;
-  position: absolute;
+  position: fixed; /* Fixes it at the top */
   top: 0;
   left: 0;
   right: 0;
+  transition: all 0.3s ease-in-out;
 }
 
 .header-nav {
@@ -151,14 +167,9 @@ h5 {
 }
 
 .header-sticky {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1999;
-  background-color: rgba(255, 255, 255, 0.95);
-  padding-top: 0;
-  padding-bottom: 0;
+  height: 70px; /* Smaller height on scroll */
+  background-color: rgba(10, 15, 13, 0.9); /* Slightly darker on scroll */
+  padding: 5px 0; /* Reduce padding */
   transition: all 0.3s ease-in-out;
 }
 
@@ -298,6 +309,7 @@ iframe {
 /* About section */
 .about {
   padding: 5rem 0;
+  background-color: var(--white-color);
 }
 
 .about-row {

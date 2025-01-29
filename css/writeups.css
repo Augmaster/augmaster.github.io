@@ -1,22 +1,230 @@
-:root {
-    --primary-bg-color: #0A0F0D; /* Dark green-black for background */
-    --primary-accent: #32CD32; /* Bright green for the hacker vibe (Matrix-style) */
-    --secondary-accent: #004F2D; /* Darker green for subtle accents */
+/* ==========================
+   🎨 Global Theme Variables
+   ========================== */
+   :root {
+    --primary-bg-color: #0A0F0D;  /* Dark green-black background */
+    --primary-accent: #32CD32;    /* Bright green (Matrix-style hacker vibe) */
+    --secondary-accent: #004F2D;  /* Darker green for contrast */
   
-    --main-text-color: #32CD32; /* Bright green for main text */
+    --main-text-color: #32CD32;   /* Bright green text */
     --supportive-text-color: #86B890; /* Softer green for secondary text */
-    --gray-text-color: #4B4E4A; /* Neutral gray for less important text */
+    --gray-text-color: #4B4E4A;   /* Neutral gray for less important text */
   
-    --white-color: #FFFFFF; /* Standard white */
-    --gray-color: #1A1A1A; /* Almost black gray for elements like borders */
-    --gray-color-2: #3C3C3B; /* Dark gray for background or subtle highlights */
-    --gray-color-3: #565A5B; /* Mid-gray for supportive UI elements */
+    --white-color: #FFFFFF;       /* Standard white */
+    --gray-color: #1A1A1A;        /* Almost black gray (borders, code blocks) */
+    --gray-color-2: #3C3C3B;      /* Dark gray (background highlights) */
+    --gray-color-3: #565A5B;      /* Mid-gray (UI elements) */
   
-    --color-preloader-bg: var(--primary-bg-color); /* Matches the dark background */
-    --color-dots: #00FF41; /* Bright green for loading dots or animations */
-  }
+    --color-preloader-bg: var(--primary-bg-color); /* Matches dark background */
+    --color-dots: #00FF41;        /* Bright green for loading dots */
+}
 
-#home > div > div > div.hero-content > span > a{
-    text-decoration: underline;
+/* ==========================
+   🏠 Hero Section (Writeups Page)
+   ========================== */
+
+/* Hero container with reduced top spacing */
+.hero {
+  padding-top: 100px; /* Reduced top gap */
+  padding-bottom: 50px;
+  background-color: var(--primary-bg-color);
+}
+
+/* Hero content aligned to the left */
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto; /* Centers within container */
+  text-align: left; /* Left-aligns all content */
+}
+
+/* Hero Image Placeholder */
+.hero-image {
+  margin-bottom: 15px; /* Space between image and title */
+}
+
+.hero-image img {
+  width: 120px; /* Adjust size */
+  height: auto;
+  border-radius: 10px; /* Optional: rounded corners */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Hero Heading */
+.hero-heading {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-align: left; /* Ensures title is left-aligned */
+
+
+}
+
+/* Subtitle below hero title */
+.writeups-subtitle {
+  display: block; 
+  margin-bottom: 20px; /* Space between subtitle and buttons */
+  color: var(--supportive-text-color);
+  text-decoration: none;
+}
+
+/* Metadata for writeup (Category, Difficulty, Date) */
+.writeup-meta {
+  text-align: left;
+  font-size: 1rem;
+  color: var(--supportive-text-color);
+}
+
+/* Writeup summary text */
+.writeup-summary {
+  text-align: left;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: var(--supportive-text-color);
+}
+
+.hero-heading-subtitle a {
+  text-decoration: none;
+  color:var(--supportive-text-color);
+}
+
+/* ==========================
+   🏆 Writeups Section (Grid Display)
+   ========================== */
+.writeups {
+    padding: 5rem 0;
+    background-color: var(--white-color);
+}
+
+.writeups-title {
+    text-align: center;
     color: var(--primary-accent);
+    margin-bottom: 2rem;
+}
+
+.writeups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+}
+
+/* Writeup Cards */
+.writeup-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 510px;
+    background: var(--primary-accent); /* Matches project tiles */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.writeup-card:hover {
+    transform: translateY(-5px);
+}
+
+.writeup-link {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--white-color);
+}
+
+.writeup-img {
+    width: 100%;
+    border-radius: 5px;
+    transition: none;
+}
+
+/* Writeup Info */
+.writeup-info {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.writeup-info h3 {
+    font-size: 1.5rem;
+    color: var(--white-color);
+    margin-bottom: 5px;
+}
+
+.writeup-info p {
+    font-size: 1rem;
+    color: var(--white-color);
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+/* ==========================
+   📖 Individual Writeup Page
+   ========================== */
+.writeup-content {
+    padding: 5rem 0;
+    background-color: var(--white-color);
+    color: var(--primary-bg-color);
+}
+
+/* Metadata & Summary */
+.writeup-meta,
+.writeup-summary {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--supportive-text-color);
+}
+
+.writeup-meta {
+    font-size: 1rem;
+}
+
+.writeup-summary {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 2rem;
+    margin-top: 2rem;
+    color: var(--primary-accent);
+}
+
+/* ==========================
+   🖥️ Code Blocks
+   ========================== */
+.code-block {
+    background-color: var(--gray-color);
+    color: var(--white-color);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    overflow-x: auto;
+}
+
+pre code {
+    font-family: monospace;
+    display: block;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* ==========================
+   🖼️ Images in Writeups
+   ========================== */
+.writeup-image {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.writeup-image img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+}
+
+.caption {
+    font-size: 0.9rem;
+    color: var(--supportive-text-color);
+    margin-top: 5px;
 }

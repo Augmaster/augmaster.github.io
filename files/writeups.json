@@ -1,0 +1,20 @@
+[
+    {
+      "title": "Basic Web Exploitation",
+      "category": "Web",
+      "difficulty": "Easy",
+      "date": "2024-01-20",
+      "link": "pages/basic_web_exploitation.html",
+      "image": "img/writeups/web.png",
+      "description": "A beginner-friendly web exploitation challenge covering SQL injection and XSS."
+    },
+    {
+      "title": "Digital Forensics Challenge",
+      "category": "Forensics",
+      "difficulty": "Medium",
+      "date": "2024-02-10",
+      "link": "writeups/forensics_challenge.html",
+      "image": "img/writeups/forensics.png",
+      "description": "Analyze log files and recover deleted data to uncover evidence in a forensic investigation."
+    }
+  ]
