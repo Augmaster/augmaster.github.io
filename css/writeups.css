@@ -2,106 +2,87 @@
    🎨 Global Theme Variables
    ========================== */
    :root {
-    --primary-bg-color: #0A0F0D;  /* Dark green-black background */
-    --primary-accent: #32CD32;    /* Bright green (Matrix-style hacker vibe) */
-    --secondary-accent: #004F2D;  /* Darker green for contrast */
+    --primary-bg-color: #0A0F0D; /* Dark green-black background */
+    --primary-accent: #32CD32;   /* Bright green (Matrix-style hacker vibe) */
+    --secondary-accent: #004F2D; /* Darker green for contrast */
   
-    --main-text-color: #32CD32;   /* Bright green text */
-    --supportive-text-color: #86B890; /* Softer green for secondary text */
-    --gray-text-color: #4B4E4A;   /* Neutral gray for less important text */
+    --main-text-color: #32CD32;  /* Bright green text */
+    --supportive-text-color: #74C365; /* Softer green for secondary text */
+    --gray-text-color: #4B4E4A;  /* Neutral gray for less important text */
   
-    --white-color: #FFFFFF;       /* Standard white */
-    --gray-color: #1A1A1A;        /* Almost black gray (borders, code blocks) */
-    --gray-color-2: #3C3C3B;      /* Dark gray (background highlights) */
-    --gray-color-3: #565A5B;      /* Mid-gray (UI elements) */
+    --white-color: #FFFFFF;      /* Standard white */
+    --gray-color: #1A1A1A;       /* Almost black gray (borders, code blocks) */
+    --gray-color-2: #3C3C3B;     /* Dark gray (background highlights) */
+    --gray-color-3: #565A5B;     /* Mid-gray (UI elements) */
   
-    --color-preloader-bg: var(--primary-bg-color); /* Matches dark background */
-    --color-dots: #00FF41;        /* Bright green for loading dots */
+    --color-preloader-bg: var(--primary-bg-color);
+    --color-dots: #00FF41;
 }
 
 /* ==========================
    🏠 Hero Section (Writeups Page)
    ========================== */
 
-/* Hero container with reduced top spacing */
 .hero {
-  padding-top: 100px; /* Reduced top gap */
-  padding-bottom: 50px;
-  background-color: var(--primary-bg-color);
+    padding-top: 80px; /* Reduced top gap */
+    padding-bottom: 40px;
+    background-color: var(--primary-bg-color);
 }
 
-/* Hero content aligned to the left */
+/* Hero Layout */
 .hero-content {
-  max-width: 800px;
-  margin: 0 auto; /* Centers within container */
-  text-align: left; /* Left-aligns all content */
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+.hero-content h1 {
+    font-size: 2.5rem;
+    color: var(--main-text-color);
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-/* Hero Image Placeholder */
+/* Center hero content on smaller screens */
+@media screen and (max-width: 720px) {
+    .hero-content {
+        text-align: center;
+    }
+}
+
+/* Hero Image */
 .hero-image {
-  margin-bottom: 15px; /* Space between image and title */
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .hero-image img {
-  width: 120px; /* Adjust size */
-  height: auto;
-  border-radius: 10px; /* Optional: rounded corners */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Hero Heading */
+/* Hero Title */
 .hero-heading {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  text-align: left; /* Ensures title is left-aligned */
-
-
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
-/* Subtitle below hero title */
-.writeups-subtitle {
-  display: block; 
-  margin-bottom: 20px; /* Space between subtitle and buttons */
-  color: var(--supportive-text-color);
-  text-decoration: none;
-}
-
-/* Metadata for writeup (Category, Difficulty, Date) */
-.writeup-meta {
-  text-align: left;
-  font-size: 1rem;
-  color: var(--supportive-text-color);
-}
-
-/* Writeup summary text */
+/* Metadata & Summary */
+.writeup-meta,
 .writeup-summary {
-  text-align: left;
-  font-size: 1.2rem;
-  margin-top: 10px;
-  color: var(--supportive-text-color);
+    font-size: 1rem;
+    color: var(--supportive-text-color);
+    text-align: left;
 }
 
-.hero-heading-subtitle a {
-  text-decoration: none;
-  color:var(--supportive-text-color);
+@media screen and (max-width: 720px) {
+    .writeup-meta,
+    .writeup-summary {
+        text-align: center;
+    }
 }
-
-/* Default: Center hero content on all pages */
-.hero-content h1 {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .hero-content h1{
-    align-items: center;
-  }
-
-  .left-aligned-hero .hero-image {
-    display: flex;
-    justify-content: center; /* Centers the image */
-    margin-bottom: 15px;
-  }
-
 
 /* ==========================
    🏆 Writeups Section (Grid Display)
@@ -130,7 +111,7 @@
     flex-direction: column;
     align-items: center;
     max-width: 510px;
-    background: var(--primary-accent); /* Matches project tiles */
+    background: var(--primary-accent);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -149,9 +130,12 @@
 }
 
 .writeup-img {
-    width: 100%;
-    border-radius: 5px;
-    transition: none;
+    width: 50%; /* Reduce width to 70% */
+    aspect-ratio: 1 / 1; /* Ensures a perfect square */
+    object-fit: cover; /* Crops excess while maintaining aspect ratio */
+    border-radius: 5px; /* Optional rounded corners */
+    display: block;
+    margin: 0 auto; /* Centers the image horizontally */
 }
 
 /* Writeup Info */
@@ -200,30 +184,52 @@
     margin-top: 10px;
 }
 
-/* Section Titles */
-.section-title {
-    font-size: 2rem;
+/* ==========================
+   🔹 Fix Heading Sizes
+   ========================== */
+   h2 {
+    font-size: 2rem;  /* Main section title */
+    font-weight: 600;
     margin-top: 2rem;
     color: var(--primary-accent);
 }
 
-/* ==========================
-   🖥️ Code Blocks
-   ========================== */
-.code-block {
-    background-color: var(--gray-color);
-    color: var(--white-color);
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 1rem;
-    overflow-x: auto;
+h3 {
+    font-size: 1.5rem; /* Secondary section headings */
+    font-weight: 600;
+    margin-top: 1.5rem;
 }
 
-pre code {
-    font-family: monospace;
-    display: block;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+h5 {
+    font-size: 1.2rem; /* Make it smaller than h3 */
+    font-weight: 600;
+    margin-top: 1rem;
+}
+/* ==========================
+   🖥️ Compact Code Blocks (No <pre>)
+   ========================== */
+
+   .code-block {
+    background-color: var(--gray-color); /* Dark background */
+    color: var(--white-color); /* Bright text */
+    padding: 6px 12px; /* Minimal padding */
+    border-radius: 5px;
+    font-size: 0.85rem; /* Keep text readable */
+    overflow-x: auto; /* Enables scrolling for long lines */
+    line-height: 1.4;
+    display: inline-block; /* Ensures the block only takes up as much space as needed */
+    max-width: fit-content; /* Code block wraps tightly around content */
+    border-left: 3px solid var(--primary-accent); /* Green accent border */
+    white-space: nowrap; /* Prevents text wrapping inside */
+}
+
+/* Code styling */
+code {
+    font-family: "Courier New", monospace;
+    font-size: 0.85rem;
+    background: transparent; /* No extra background */
+    padding: 0;
+    display: inline-block;
 }
 
 /* ==========================
@@ -246,10 +252,85 @@ pre code {
     margin-top: 5px;
 }
 
+/* ==========================
+   🔹 Bullet Point Styling
+   ========================== */
+   ul {
+    padding-left: 20px; /* Add indentation */
+    margin-top: 10px; /* Space from text above */
+}
+
+ul li {
+    list-style-type: disc; /* Use bullets */
+    margin-bottom: 5px; /* Space between bullet points */
+    color: var(--primary-bg-color); /* Ensures text is visible */
+    font-size: 1rem;
+}
+
+
+/* ==========================
+   📱 Responsive Adjustments
+   ========================== */
 @media screen and (max-width: 720px) {
     .hero-content,
-    .left-aligned-hero .hero-content {
-      text-align: center;
-      margin-left: auto;
-      margin-right: auto;
+    .writeup-meta,
+    .writeup-summary,
+    .writeup-title,
+    .writeup-image {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
     }
+
+    .hero-heading {
+        text-align: center;
+    }
+
+    .code-block {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* Left-align hero content for writeups.html */
+.writeups-hero .hero-content h1{
+    text-align: left;
+    margin-left: 0;
+}
+/* Ensure links in hero section match the theme */
+.writeups-subtitle a {
+    color: var(--primary-accent); /* Bright green */
+    text-decoration: underline;
+}
+
+/* Ensure links don't turn purple when visited */
+.writeups-subtitle a:visited {
+    color: var(--primary-accent);
+}
+
+.writeups-subtitle {
+    display: block; 
+    margin-bottom: 20px; /* Add space below */
+    /* color: var(--supportive-text-color); */
+}
+
+/* 🔙 Back Arrow for Writeup Pages */
+.back-arrow {
+    display: inline-block;
+    position: absolute;
+    top: 20px;  /* Adjust distance from top */
+    left: 20px; /* Adjust distance from left */
+    font-size: 1.2rem;
+    color: var(--primary-accent); /* Bright green */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.back-arrow:hover {
+    color: var(--supportive-text-color); /* Slightly lighter green on hover */
+}

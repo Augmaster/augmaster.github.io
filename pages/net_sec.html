@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Net Sec</title>
+    
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/media.css" />
+    <link rel="stylesheet" href="../css/writeups.css" />
+    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script defer src="../js/writeups.js"></script>
+</head>
+
+<body class="left-aligned-hero">
+
+    <!-- Navbar Placeholder -->
+    <div id="nav-placeholder"></div>
+
+    <!-- Content Wrapper (for smooth loading) -->
+    <div id="content" class="fade-in">
+      
+      <!-- Hero Section -->
+      <section id="home" class="hero">
+        <div class="container container-lg">
+            <!-- Back Arrow Button -->
+            <a href="../writeups.html" class="back-arrow" data-aos="fade-right" data-aos-duration="1000">
+                ← Back to Writeups
+            </a>
+    
+            <div class="hero-content">
+                <div class="hero-image" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="../img/writeups/netsec.png" alt="Net Sec Challenges" />
+                </div>
+                <h1 class="hero-heading" data-aos="fade-up" data-aos-duration="1200">Net Sec Challenges</h1>
+                <p class="writeup-meta" data-aos="fade-up" data-aos-duration="1400">
+                    <strong>Category:</strong> Network Security | <strong>Difficulty:</strong> Medium | <strong>Date:</strong> Jan 18, 2025
+                </p>
+                <p class="writeup-summary" data-aos="fade-up" data-aos-duration="1600">
+                    Practice the skills you have learned in the Network Security module.
+                </p>
+            </div>
+        </div>
+    </section>
+
+      <!-- Writeup Content -->
+<!-- Writeup Content -->
+<section id="writeup-content" class="writeup-content">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Introduction</h2>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      In this challenge, we tested our <strong>network security skills</strong> using <strong>Nmap, Telnet, and Hydra</strong>. 
+      We performed active reconnaissance, identified open services, and exploited vulnerabilities 
+      to retrieve multiple hidden flags.
+    </p>
+
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 1: Network Reconnaissance with Nmap</h2>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      The first step was to scan the target machine for open ports and services. We used <strong>Nmap</strong> to 
+      perform a full TCP scan, revealing multiple open ports:
+    </p>
+    <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+      <code>
+        nmap -p- -sV -T4 MACHINE_IP
+      </code>
+    </pre>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      The scan results showed <strong>six open TCP ports</strong>, including:
+      <ul data-aos="fade-right" data-aos-duration="1200">
+        <li>HTTP on <strong>8080</strong></li>
+        <li>FTP on <strong>10021</strong></li>
+        <li>SSH running on a non-standard port</li>
+      </ul>
+      The highest port number under 10,000 was <strong>8080</strong>, while another open port above 10,000 was <strong>10021</strong>.
+    </p>
+
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 2: Extracting Hidden Flags</h2>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      After identifying open ports, we extracted <strong>hidden flags</strong> from the <strong>HTTP and SSH headers</strong>:
+    </p>
+
+    <h5 class="section-title" data-aos="fade-right" data-aos-duration="1000">🏴‍☠️  HTTP Header Flag</h5>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      Running a simple <strong>curl</strong> command against port <strong>8080</strong> revealed a hidden flag in the HTTP response:
+    </p>
+    <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+      <code>
+        curl -I http://MACHINE_IP:8080
+      </code>
+    </pre>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      The HTTP server header contained the flag: <strong>THM{web_server_25352}</strong>
+    </p>
+
+    <h5 class="section-title" data-aos="fade-right" data-aos-duration="1000">🏴‍☠️  SSH Header Flag</h5>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      Similarly, checking the SSH banner revealed another flag:
+    </p>
+    <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+      <code>
+        nc MACHINE_IP 22
+      </code>
+    </pre>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      The SSH banner displayed: <strong>THM{946219583339}</strong>
+    </p>
+
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 3: Identifying the FTP Server Version</h2>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      The <strong>FTP server was running on port 10021</strong>. Using Nmap, we extracted its version:
+    </p>
+    <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+      <code>
+        nmap -p 10021 --script=ftp-anon MACHINE_IP
+      </code>
+    </pre>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      The output revealed the <strong>FTP server version</strong> as <strong>vsftpd 3.0.5</strong>.
+    </p>
+
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 4: Brute Forcing FTP Credentials</h2>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      We had two usernames from <strong>social engineering</strong>: <strong>eddie</strong> and <strong>quinn</strong>.  
+      Using <strong>Hydra</strong>, we brute-forced FTP access:
+    </p>
+    <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+      <code>
+        hydra -l eddie -P /usr/share/wordlists/rockyou.txt ftp://MACHINE_IP -s 10021
+      </code>
+    </pre>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      Once logged in, we accessed one of the user’s files and found a hidden flag:  
+      <strong>THM{321452667098}</strong>
+    </p>
+
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 5: Solving the Web Challenge</h2>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      Browsing to <strong>http://MACHINE_IP:8080</strong> revealed an interactive challenge.  
+      Solving it provided the final flag:
+    </p>
+    <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+      <code>
+        THM{f7443f99}
+      </code>
+    </pre>
+
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Conclusion</h2>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      This challenge reinforced key penetration testing skills, including:
+      <ul data-aos="fade-right" data-aos-duration="1200">
+        <li>Using <strong>Nmap</strong> for <strong>active reconnaissance</strong></li>
+        <li>Extracting <strong>banner information</strong> from <strong>HTTP & SSH headers</strong></li>
+        <li>Identifying <strong>non-standard FTP ports</strong> and extracting server versions</li>
+        <li>Performing <strong>brute-force attacks</strong> with <strong>Hydra</strong></li>
+      </ul>
+      <p data-aos="fade-right" data-aos-duration="1200">These techniques are fundamental for <strong>real-world penetration testing<strong> and <strong>network security assessments<strong>.</p>
+    </p>
+  </div>
+</section>
+
+    </div> <!-- End Content Wrapper -->
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="../js/components.js"></script>
+    <script type="module" src="../js/main.js"></script>
+
+    <script>
+      // Initialize AOS animations
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+      });
+
+      // Add fade-in effect on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("content").classList.add("fade-in-active");
+      });
+    </script>
+
+</body>
+</html>
