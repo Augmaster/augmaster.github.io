@@ -1,11 +1,20 @@
 [
-    {
-      "title": "Net Sec Challenge",
-      "category": "Network Security",
-      "difficulty": "Medium",
-      "date": "2025-01-18",
-      "link": "pages/net_sec.html",
-      "image": "img/writeups/netsec.png",
-      "description": "Practice the skills you have learned in the Network Security module."
-    }
-  ]
+  {
+    "title": "Vulnerability Capstone",
+    "category": "Vulnerability Research",
+    "difficulty": "Easy",
+    "date": "2025-01-12",
+    "link": "pages/vulnerability_capstone.html",
+    "image": "img/writeups/vuln_cap.png",
+    "description": "Apply the knowledge gained throughout the Vulnerability Module in this challenge room."
+  },
+  {
+    "title": "Net Sec Challenge",
+    "category": "Network Security",
+    "difficulty": "Medium",
+    "date": "2025-01-18",
+    "link": "pages/net_sec.html",
+    "image": "img/writeups/netsec.png",
+    "description": "Practice the skills you have learned in the Network Security module."
+  }
+]
