@@ -1,0 +1,22 @@
+:root {
+    --primary-bg-color: #0A0F0D; /* Dark green-black for background */
+    --primary-accent: #32CD32; /* Bright green for the hacker vibe (Matrix-style) */
+    --secondary-accent: #004F2D; /* Darker green for subtle accents */
+  
+    --main-text-color: #32CD32; /* Bright green for main text */
+    --supportive-text-color: #86B890; /* Softer green for secondary text */
+    --gray-text-color: #4B4E4A; /* Neutral gray for less important text */
+  
+    --white-color: #FFFFFF; /* Standard white */
+    --gray-color: #1A1A1A; /* Almost black gray for elements like borders */
+    --gray-color-2: #3C3C3B; /* Dark gray for background or subtle highlights */
+    --gray-color-3: #565A5B; /* Mid-gray for supportive UI elements */
+  
+    --color-preloader-bg: var(--primary-bg-color); /* Matches the dark background */
+    --color-dots: #00FF41; /* Bright green for loading dots or animations */
+  }
+
+#home > div > div > div.hero-content > span > a{
+    text-decoration: underline;
+    color: var(--primary-accent);
+}
