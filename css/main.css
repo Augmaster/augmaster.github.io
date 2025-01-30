@@ -511,7 +511,7 @@ iframe {
 /* Projects Section */
 .projects {
   padding: 7rem 0;
-  background-color: var(--white-color);
+  /* background-color: var(--white-color); */
 }
 
 .projects-title {
@@ -904,3 +904,81 @@ a.mail-contact{
       width: 100%; /* Ensures full width for centering */
   }
 }
+
+/* ==========================
+   💼 Work Experience Section
+   ========================== */
+   .work-experience {
+    padding: 7rem 0;
+    background-color: var(--white-color);
+  }
+  
+  .work-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--primary-accent);
+  }
+  
+  /* Flexbox Layout for Work Experience Tiles */
+  .work-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+  
+  /* Work Experience Tile */
+  .work-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 510px;
+    background: var(--primary-accent);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Work Experience Image */
+  .work-img {
+    width: 100%; /* Ensures the image fills the container */
+    height: 10rem; /* Adjust this to your preferred fixed height */
+    object-fit: contain; /* Ensures the full image is visible */
+    border-radius: 5px; /* Optional: adds rounded corners */
+    display: block;
+  }
+  /* Work Experience Caption */
+  .work-caption {
+    text-align: center;
+    padding: 15px 0;
+  }
+  
+  .work-caption h5 {
+    font-size: 1.5rem;
+    color: var(--white-color);
+    margin-bottom: 5px;
+  }
+  
+  .work-caption p {
+    font-size: 1rem;
+    color: var(--white-color);
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  
+  /* Work Experience Description */
+  .work-description {
+    margin-top: 15px;
+    text-align: justify;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .work-description p {
+    font-size: 1rem;
+    color: var(--white-color);
+    line-height: 1.5;
+  }
