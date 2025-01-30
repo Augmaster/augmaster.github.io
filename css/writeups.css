@@ -215,13 +215,16 @@ h5 {
     padding: 6px 12px; /* Minimal padding */
     border-radius: 5px;
     font-size: 0.85rem; /* Keep text readable */
-    overflow-x: auto; /* Enables scrolling for long lines */
+    overflow-x: auto; /* Keep for larger screens */
+    word-wrap: break-word; /* Allow words to break */
+    white-space: pre-wrap; /* Ensures code wraps properly */
     line-height: 1.4;
     display: inline-block; /* Ensures the block only takes up as much space as needed */
     max-width: fit-content; /* Code block wraps tightly around content */
     border-left: 3px solid var(--primary-accent); /* Green accent border */
     white-space: nowrap; /* Prevents text wrapping inside */
 }
+
 
 /* Code styling */
 code {
@@ -333,4 +336,20 @@ ul li {
 
 .back-arrow:hover {
     color: var(--supportive-text-color); /* Slightly lighter green on hover */
+}
+
+
+@media screen and (max-width: 720px) {
+    .code-block {
+        font-size: 0.9rem; /* Reduce font size for better fit */
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        white-space: pre-wrap; /* Ensures code wraps properly */
+        word-wrap: break-word; /* Allows long words to wrap */
+    }
+    .section-title {
+        text-align: center; /* Center titles on small screens */
+    }
+    .writeups-hero .hero-content h1{
+        text-align: center;
+    }
 }

@@ -890,3 +890,17 @@ a.mail-contact{
   opacity: 1;
   transform: translateY(0);
 }
+
+@media screen and (max-width: 980px) {
+  .nav-btn {
+      display: none !important; /* Completely removes the hamburger */
+  }
+  .header-nav {
+    justify-content: center; /* Centers logo */
+  }
+
+  .logo {
+      text-align: center;
+      width: 100%; /* Ensures full width for centering */
+  }
+}
