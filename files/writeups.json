@@ -34,5 +34,14 @@
     "link": "pages/pickle_rick.html",
     "image": "img/writeups/pickle_rick/pickle rick.jpeg",
     "description": "A Rick and Morty CTF. Help turn Rick back into a human!"
+  },
+  {
+    "title": "Bricks Heist",
+    "category": "Web Hacking Fundamentals",
+    "difficulty": "Easy",
+    "date": "2025-02-09",
+    "link": "pages/bricks_heist.html",
+    "image": "img/writeups/bricks_heist/bricks_heist.png",
+    "description": "Crack the code, command the exploit! Dive into the heart of the system with just an RCE CVE as your key."
   }
 ]

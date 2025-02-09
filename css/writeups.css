@@ -115,13 +115,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between; /* Ensures equal spacing inside */
     background: var(--primary-accent);
     padding: 20px;
     border-radius: 12px;
+    min-width: 200px;
     max-width: 500px;
+    min-height: 500px; /* Set a minimum height */
     box-shadow: 0 4px 15px rgba(50, 205, 50, 0.3); /* Green soft glow */
     border: 3px solid var(--main-text-color); /* Bright green border */
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    flex-grow: 1; /* Allows equal height across multiple cards */
 }
 
 /* 🟢 Hover Effect */
@@ -286,7 +290,7 @@ h5 {
 /* Code styling */
 code {
     font-family: "Courier New", monospace;
-    font-size: 0.85rem;
+    font-size: 1.2rem;
     background: transparent; /* No extra background */
     padding: 0;
     display: inline-block;
