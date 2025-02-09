@@ -1,1 +1,65 @@
+# Ignore system files
 .DS_Store
+Thumbs.db
+/img/DS_Store
+
+# Ignore dependency directories
+node_modules/
+vendor/
+__pycache__/
+venv/
+env/
+
+# Ignore compiled files
+*.class
+*.o
+*.so
+*.dll
+*.exe
+*.pyc
+*.pyo
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# Ignore IDE and editor settings
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Ignore build and cache directories
+dist/
+build/
+.cache/
+out/
+
+# Ignore environment variable files
+.env
+.env.local
+.env.development
+.env.production
+
+# Ignore Git-related files
+.git/
+.gitignore
+
+# Ignore database and exported files
+*.sqlite
+*.db
+*.sql
+*.csv
+*.tsv
+
+# Ignore packaged files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# Ignore macOS-specific files
+*.DS_Store
+._*

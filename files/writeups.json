@@ -25,5 +25,14 @@
     "link": "pages/net_sec.html",
     "image": "img/writeups/netsec.png",
     "description": "Practice the skills you have learned in the Network Security module."
+  },
+  {
+    "title": "Pickle Rick",
+    "category": "Web Hacking Fundamentals",
+    "difficulty": "Easy",
+    "date": "2025-02-08",
+    "link": "pages/pickle_rick.html",
+    "image": "img/writeups/pickle_rick/pickle rick.jpeg",
+    "description": "A Rick and Morty CTF. Help turn Rick back into a human!"
   }
 ]

