@@ -87,48 +87,60 @@
 /* ==========================
    🏆 Writeups Section (Grid Display)
    ========================== */
-.writeups {
+   .writeups {
     padding: 5rem 0;
     background-color: var(--white-color);
 }
 
+/* Title Styling */
 .writeups-title {
     text-align: center;
-    color: var(--primary-accent);
+    color: var(--main-text-color); /* Green title */
+    font-size: 2rem;
     margin-bottom: 2rem;
 }
 
+/* Centered Grid Layout */
 .writeups-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Responsive layout */
     gap: 2rem;
-    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
-/* Writeup Cards */
+/* 🎴 Writeup Cards */
 .writeup-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 510px;
     background: var(--primary-accent);
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease-in-out;
+    border-radius: 12px;
+    max-width: 500px;
+    box-shadow: 0 4px 15px rgba(50, 205, 50, 0.3); /* Green soft glow */
+    border: 3px solid var(--main-text-color); /* Bright green border */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
+/* 🟢 Hover Effect */
 .writeup-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(50, 205, 50, 0.5);
 }
 
+/* 📎 Writeup Links */
 .writeup-link {
     display: flex;
     flex-direction: column;
     text-decoration: none;
     color: var(--white-color);
+    width: 100%;
+    text-align: center;
 }
 
+/* 🖼️ Image Styling */
 .writeup-img {
     width: 50%; /* Reduce width to 70% */
     aspect-ratio: 1 / 1; /* Ensures a perfect square */
@@ -138,24 +150,69 @@
     margin: 0 auto; /* Centers the image horizontally */
 }
 
-/* Writeup Info */
+/* ℹ️ Writeup Information */
 .writeup-info {
     text-align: center;
     padding: 15px 0;
 }
 
 .writeup-info h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: var(--white-color);
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .writeup-info p {
     font-size: 1rem;
     color: var(--white-color);
-    max-width: 90%;
+    max-width: 85%;
     margin: 0 auto;
 }
+
+/* 🎚️ Filters Styling */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.filter-container label {
+    font-weight: bold;
+    color: var(--main-text-color);
+    font-size: 1.1rem;
+}
+
+.filter-container select {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid var(--main-text-color);
+    background-color: #1a1a1a;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.filter-container select:hover {
+    background-color: var(--main-text-color);
+    color: black;
+}
+
+/* 📱 Mobile-Friendly Adjustments */
+@media (max-width: 768px) {
+    .writeups-grid {
+        grid-template-columns: 1fr; /* One card per row */
+    }
+
+    .writeup-card {
+        width: 90%;
+        margin: 0 auto; /* Centering */
+    }
+}
+
+
 
 /* ==========================
    📖 Individual Writeup Page
@@ -353,3 +410,4 @@ ul li {
         text-align: center;
     }
 }
+
