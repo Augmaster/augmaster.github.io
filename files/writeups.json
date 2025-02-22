@@ -43,5 +43,14 @@
     "link": "pages/bricks_heist.html",
     "image": "img/writeups/bricks_heist/bricks_heist.png",
     "description": "Crack the code, command the exploit! Dive into the heart of the system with just an RCE CVE as your key."
+  },
+  {
+    "title": "MalBuster",
+    "category": "Malware Reverse Engineering",
+    "difficulty": "Medium",
+    "date": "2025-02-22",
+    "link": "pages/malbuster.html",
+    "image": "img/writeups/malbuster/malbuster.png",
+    "description": "Static analysis of malware samples and discovering their behavior."
   }
 ]

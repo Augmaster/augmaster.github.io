@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MalBuster</title>
+  
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/media.css" />
+  <link rel="stylesheet" href="../css/writeups.css" />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <script defer src="../js/writeups.js"></script>
+</head>
+<body class="left-aligned-hero">
+
+  <!-- Navbar Placeholder -->
+  <div id="nav-placeholder"></div>
+
+  <!-- Content Wrapper -->
+  <div id="content" class="fade-in">
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container container-lg">
+          <a href="../writeups.html" class="back-arrow" data-aos="fade-right" data-aos-duration="1000">
+              ← Back to Writeups
+          </a>
+          <div class="hero-content">
+              <div class="hero-image" data-aos="fade-up" data-aos-duration="1000">
+                  <img src="../img/writeups/malbuster/malbuster.png" alt="MalBuster Writeup" />
+              </div>
+              <h1 class="hero-heading" data-aos="fade-up" data-aos-duration="1200">MalBuster</h1>
+              <p class="writeup-meta" data-aos="fade-up" data-aos-duration="1400">
+                  <strong>Category:</strong> Malware Reverse Engineering | 
+                  <strong>Difficulty:</strong> Medium | 
+                  <strong>Time:</strong> 60 min
+              </p>
+              <p class="writeup-summary" data-aos="fade-up" data-aos-duration="1600">
+                  Analyze unknown malware samples detected by your SOC team.
+              </p>
+          </div>
+      </div>
+    </section>
+
+    <!-- Writeup Content -->
+    <section id="writeup-content" class="writeup-content">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Scenario</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          You are currently working as a Malware Reverse Engineer for your organization. Your team acts as a support for the SOC team when detections of unknown binaries occur. One of the SOC analysts triaged an alert triggered by binaries with unusual behavior. Your task is to analyze the binaries detected by your SOC team and provide enough information to assist them in remediating the threat.
+        </p>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Analysis Details</h2>
+        
+        <!-- Q1 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q1: Based on the ARCHITECTURE of the binary, is malbuster_1 a 32-bit or a 64-bit application?</h3>
+          <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>file malbuster_1
+            "malbuster_1: PE32 executable (GUI) Intel 80386, for MS Windows"</code>
+          </pre>
+          <p><em>Explanation:</em> The output indicates “PE32” and “80386”, confirming it is a 32-bit application.</p>
+          <p><strong>Answer:</strong> 32-bit</p>
+        </div>
+        
+        <!-- Q2 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q2: What is the MD5 hash of malbuster_1?</h3>
+          <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>pe-tree malbuster_1
+            (MD5 field)</code>
+          </pre>
+          <p><strong>Answer:</strong> 4348da65e4aeae6472c7f97d6dd8ad8f</p>
+        </div>
+        
+        <!-- Q3 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q3: Using the hash, what is the popular threat label of malbuster_1 according to VirusTotal?</h3>
+          <p><em>Explanation:</em> VirusTotal was used to search the MD5 hash, revealing the threat label.</p>
+          <div class="screenshot" data-aos="fade-up" data-aos-duration="1200">
+            <img src="../img/writeups/malbuster/malbuster1.png" alt="Screenshot for Q3" />
+          </div>
+          <p><strong>Answer:</strong> <a href="https://www.virustotal.com/gui/search/engines:trojan%20AND%20engines:pua%20AND%20engines:spyware%20AND%20engines:zbot%20AND%20engines:razy%20AND%20engines:smrl" target="_blank">trojan.zbot/razy</a></p>
+        </div>
+        
+        <!-- Q4 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q4: Based on VirusTotal detection, what is the malware signature of malbuster_2 according to Avira?</h3>
+          <p><em>Explanation:</em> The MD5 of malbuster_2 was searched on VirusTotal to retrieve this signature.</p>
+          <div class="screenshot" data-aos="fade-up" data-aos-duration="1200">
+            <img src="../img/writeups/malbuster/malbuster2.png" alt="Screenshot for Q4" />
+          </div>
+          <p><strong>Answer:</strong> HEUR/AGEN.1306860</p>
+        </div>
+        
+        <!-- Q5 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q5: malbuster_2 imports the function <code>_CorExeMain</code>. From which DLL file does it import this function?</h3>
+          <p><em>Explanation:</em> This was identified in the IMAGE_NT_HEADERS &rarr; IMAGE_IMPORT_DESCRIPTOR using pe-tree.</p>
+          <div class="screenshot" data-aos="fade-up" data-aos-duration="1200">
+            <img src="../img/writeups/malbuster/malbuster3.png" alt="Screenshot for Q5" />
+          </div>
+          <p><strong>Answer:</strong> mscoree.dll</p>
+        </div>
+        
+        <!-- Q6 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q6: Based on the VS_VERSION_INFO header, what is the original name of malbuster_2?</h3>
+          <p><em>Explanation:</em> The original filename was retrieved from the VS_VERSION_INFO header.</p>
+          <div class="screenshot" data-aos="fade-up" data-aos-duration="1200">
+            <img src="../img/writeups/malbuster/malbuster4.png" alt="Screenshot for Q6" />
+          </div>
+          <p><strong>Answer:</strong> 7JYpE.exe</p>
+        </div>
+        
+        <!-- Q7 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q7: Using the hash of malbuster_3, what is its malware signature based on abuse.ch?</h3>
+          <p><em>Explanation:</em> A Google search using the hash along with abuse.ch returned this signature.</p>
+          <div class="screenshot" data-aos="fade-up" data-aos-duration="1200">
+            <img src="../img/writeups/malbuster/malbuster5.png" alt="Screenshot for Q7 part 1" />
+            <img src="../img/writeups/malbuster/malbuster6.png" alt="Screenshot for Q7 part 2" />
+          </div>
+          <p><strong>Answer:</strong> TrickBot</p>
+        </div>
+        
+        <!-- Q8 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q8: Using the hash of malbuster_4, what is its malware signature based on abuse.ch?</h3>
+          <p><em>Explanation:</em> Abuse.ch was queried similarly to reveal this signature.</p>
+          <div class="screenshot" data-aos="fade-up" data-aos-duration="1200">
+            <img src="../img/writeups/malbuster/malbuster7.png" alt="Screenshot for Q8 part1" />
+          </div>
+          <p><strong>Answer:</strong> Zloader</p>
+
+        </div>
+        
+        <!-- Q9 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q9: What is the message found in the DOS_STUB of malbuster_4?</h3>
+          <p><em>Explanation:</em> The DOS_STUB in the pe-tree analysis contained this message.</p>
+          <div class="screenshot" data-aos="fade-up" data-aos-duration="1200">
+            <img src="../img/writeups/malbuster/malbuster8.png" alt="Screenshot for Q9" />
+          </div>
+          <p><strong>Answer:</strong> !This Salfram cannot be run in DOS mode.</p>
+
+        </div>
+        
+        <!-- Q10 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q10: malbuster_4 imports the function <code>ShellExecuteA</code>. From which DLL file does it import this function?</h3>
+          <p><em>Explanation:</em> This function import was found under IMAGE_IMPORT_DESCRIPTOR using pe-tree.</p>
+          <div class="screenshot" data-aos="fade-up" data-aos-duration="1200">
+            <img src="../img/writeups/malbuster/malbuster9.png" alt="Screenshot for Q10" />
+          </div>
+          <p><strong>Answer:</strong> shell32.dll</p>
+        </div>
+        
+        <!-- Q11 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q11: Using capa, how many anti-VM instructions were identified in malbuster_1?</h3>
+          <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+                <code>capa.exe -vv malbuster_1 > malbuster_1_vv
+                (anti-VM instructions: 3)</code>
+          </pre>
+          <p><em>Explanation:</em> The capa output confirmed the presence of 3 anti-VM instructions.</p>
+          <div class="screenshot" data-aos="fade-up" data-aos-duration="1200">
+            <img src="../img/writeups/malbuster/malbuster10.png" alt="Screenshot for Q11" />
+          </div>
+          <p><strong>Answer:</strong> 3</p>
+
+        </div>
+        
+        <!-- Q12 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q12: Using capa, which binary can log keystrokes?</h3>
+          <p><em>Explanation:</em> Analysis with capa indicated that binary 3 is capable of logging keystrokes.</p>
+          <div class="screenshot" data-aos="fade-up" data-aos-duration="1200">
+            <img src="../img/writeups/malbuster/malbuster11.png" alt="Screenshot for Q12" />
+          </div>
+          <p><strong>Answer:</strong> malbuster_3</p>
+        </div>
+        
+        <!-- Q13 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q13: Using capa, what is the MITRE ID of the DISCOVERY technique used by malbuster_4?</h3>
+          <p><em>Explanation:</em> The MITRE ID was identified from the capa output for malbuster_4.</p>
+          <div class="screenshot" data-aos="fade-up" data-aos-duration="1200">
+            <img src="../img/writeups/malbuster/malbuster12.png" alt="Screenshot for Q13" />
+          </div>
+          <p><strong>Answer:</strong> T1083</p>
+        </div>
+        
+        <!-- Q14 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q14: Which binary contains the string "GodMode"?</h3>
+          <p><strong>Answer:</strong> malbuster_2</p>
+          <p><em>Explanation:</em> The string “GodMode” was found exclusively in malbuster_2.</p>
+        </div>
+        
+        <!-- Q15 -->
+        <div class="qa-item" data-aos="fade-right" data-aos-duration="1200">
+          <h3>Q15: Which binary contains the string "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)"?</h3>
+          <p><strong>Answer:</strong> malbuster_1</p>
+          <p><em>Explanation:</em> This string was confirmed to be present in malbuster_1.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="../js/components.js"></script>
+  <script type="module" src="../js/main.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      easing: 'ease-in-out',
+      once: true,
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("content").classList.add("fade-in-active");
+    });
+  </script>
+</body>
+</html>
