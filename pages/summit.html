@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Summit</title>
+
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/media.css" />
+    <link rel="stylesheet" href="../css/writeups.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" crossorigin="anonymous" />
+
+    <script defer src="../js/writeups.js"></script>
+</head>
+
+<body class="left-aligned-hero">
+
+    <!-- Navbar Placeholder -->
+    <div id="nav-placeholder"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content" class="fade-in">
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container container-lg">
+                <a href="../writeups.html" class="back-arrow" data-aos="fade-right" data-aos-duration="1000">
+                    ← Back to Writeups
+                </a>
+
+                <div class="hero-content">
+                    <div class="hero-image" data-aos="fade-up" data-aos-duration="1000">
+                        <img src="../img/writeups/summit.png" alt="Summit" />
+                    </div>
+                    <h1 class="hero-heading" data-aos="fade-up" data-aos-duration="1200">Summit</h1>
+                    <p class="writeup-meta" data-aos="fade-up" data-aos-duration="1400">
+                        <strong>Category:</strong> Cyber Defence Frameworks | <strong>Difficulty:</strong> Easy |
+                        <strong>Date:</strong> Apr 8, 2025
+                    </p>
+                    <p class="writeup-summary" data-aos="fade-up" data-aos-duration="1600">
+                        Can you chase a simulated adversary up the Pyramid of Pain until they finally back down?
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Writeup Content -->
+        <section id="writeup-content" class="writeup-content">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Introduction</h2>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    In the "Summit" challenge on TryHackMe, we engaged in a simulated threat detection exercise,
+                    applying the concepts of the <strong>Pyramid of Pain</strong> to detect and prevent malware
+                    execution.
+                </p>
+
+                <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 1: Detecting sample1.exe
+                </h2>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    After launching the provided virtual machine and accessing the application, we received an email
+                    from Sphinx with the attachment <code>sample1.exe</code>. We submitted this sample to the
+                    <strong>Malware Sandbox</strong> for analysis.
+                </p>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    The analysis provided the file's hash values. Recognizing that file hashes are at the base of the
+                    Pyramid of Pain and are trivial for attackers to change, we proceeded to block this specific hash to
+                    prevent the malware's execution.
+                </p>
+                <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              # Steps to block the hash:
+              1. Navigate to 'Manage Hashes' in the application menu.
+              2. Select 'SHA256' as the hash type.
+              3. Paste the hash value obtained from the analysis.
+              4. Submit the hash to add it to the blocklist.
+            </code>
+          </pre>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    Successfully adding the hash to the blocklist prevented <code>sample1.exe</code> from executing and
+                    provided the first flag: <code>THM{f3cbf08151a11a6a331db9c6cf5f4fe4}</code>.
+                </p>
+
+                <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 2: Detecting sample2.exe
+                </h2>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    Sphinx then provided <code>sample2.exe</code>, a recompiled version of the previous malware with a
+                    different hash. This time, the malware exhibited network activity, communicating with the IP address
+                    <code>154.35.10.113</code>.
+                </p>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    To block this malicious communication:
+                </p>
+                <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              # Steps to block the IP address:
+              1. Navigate to 'Firewall Manager' in the application menu.
+              2. Create a new egress rule with the following parameters:
+                 - Source IP: Any
+                 - Destination IP: 154.35.10.113
+                 - Action: Deny
+              3. Apply the rule to block outbound traffic to this IP.
+            </code>
+          </pre>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    Implementing this firewall rule prevented <code>sample2.exe</code> from communicating with its
+                    command and control server, yielding the second flag:
+                    <code>THM{2ff48a3421a938b388418be273f4806d}</code>.
+                </p>
+
+                <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 3: Detecting sample3.exe
+                </h2>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    The next iteration involved <code>sample3.exe</code>, which used the domain
+                    <code>emudyn.bresonicz.info</code> for its command and control communication. To counter this:
+                </p>
+                <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              # Steps to block the domain:
+              1. Navigate to 'DNS Filter' in the application menu.
+              2. Create a new rule with the following parameters:
+                 - Domain Name: emudyn.bresonicz.info
+                 - Action: Deny
+              3. Apply the rule to block DNS resolution for this domain.
+            </code>
+          </pre>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    Blocking the domain disrupted the malware's ability to resolve its C2 address, rendering the sample
+                    ineffective. This action granted the third flag: <code>THM{9f205f17cc443cf3ee41b403a596fd7c}</code>.
+                </p>
+
+                <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 4: Detecting sample4.exe
+                </h2>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    The fourth sample, <code>sample4.exe</code>, leveraged a custom DNS protocol to bypass standard
+                    detection. The sandbox revealed connections to <code>3.65.41.133</code> and a series of encoded
+                    subdomains.
+                </p>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    To counteract this tactic, we created a DNS wildcard block:
+                </p>
+                <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              # DNS wildcard blocking:
+              1. In DNS Filter, create a rule:
+                 - Domain Name: *.bresonicz.info
+                 - Action: Deny
+              2. Apply the rule to deny all subdomain queries to that domain.
+            </code>
+          </pre>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    This prevented further communication using subdomain-based data exfiltration. The fourth flag was
+                    revealed: <code>THM{3e8b12e88de6eabc984b5f5f01f26f2e}</code>.
+                </p>
+
+                <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Step 5: Detecting sample5.exe
+                </h2>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    Finally, <code>sample5.exe</code> introduced a behavioral pattern — using
+                    <strong>schtasks.exe</strong> to create a persistent task and <strong>curl</strong> to download
+                    payloads. Signature-based detection wouldn’t help here.
+                </p>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    Instead, we defined a behavioral detection rule:
+                </p>
+                <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+            <code>
+              # Detection Rule:
+              If:
+                parent_process == "sample5.exe"
+              AND
+                child_process == "schtasks.exe"
+              THEN
+                alert("Persistence attempt via schtasks by malicious process")
+            </code>
+          </pre>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    Once this rule was added, we successfully detected and neutralized the sample’s persistence
+                    mechanism. The final flag appeared: <code>THM{4c2f7d0e9cc3f2f9b1c9c2a0e2cf0f4f}</code>.
+                </p>
+
+                <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Conclusion</h2>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    "Summit" was a creative exploration of adversary behavior across the Pyramid of Pain. As challenges
+                    progressed, we moved from basic IOCs (hashes, IPs, domains) to more difficult detections like
+                    behaviors and TTPs.
+                <ul data-aos="fade-right" data-aos-duration="1200">
+                    <li>Blocking hashes for quick wins</li>
+                    <li>Stopping C2 infrastructure using IP/domain rules</li>
+                    <li>Understanding and reacting to adversary persistence mechanisms</li>
+                    <li>Creating custom detection logic for long-term defense</li>
+                </ul>
+                This room is a great hands-on demo of threat detection depth and why higher-level indicators cause more
+                pain for attackers.
+                </p>
+            </div>
+        </section>
+    </div> <!-- End Content Wrapper -->
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="../js/components.js"></script>
+    <script type="module" src="../js/main.js"></script>
+
+    <script>
+        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("content").classList.add("fade-in-active");
+        });
+    </script>
+</body>
+
+</html>

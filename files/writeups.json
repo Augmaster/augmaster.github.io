@@ -52,5 +52,14 @@
     "link": "pages/malbuster.html",
     "image": "img/writeups/malbuster/malbuster.png",
     "description": "Static analysis of malware samples and discovering their behavior."
+  },
+  {
+    "title": "Summit",
+    "category": "Cyber Defence Frameworks",
+    "difficulty": "Easy",
+    "date": "2025-04-08",
+    "link": "pages/summit.html",
+    "image": "img/writeups/summit.png",
+    "description": "Can you chase a simulated adversary up the Pyramid of Pain until they finally back down?"
   }
 ]
