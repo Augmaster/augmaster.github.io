@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eviction</title>
+
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/media.css" />
+    <link rel="stylesheet" href="../css/writeups.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" crossorigin="anonymous" />
+
+    <script defer src="../js/writeups.js"></script>
+</head>
+
+<body class="left-aligned-hero">
+
+    <!-- Navbar Placeholder -->
+    <div id="nav-placeholder"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content" class="fade-in">
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container container-lg">
+                <a href="../writeups.html" class="back-arrow" data-aos="fade-right" data-aos-duration="1000">
+                    ← Back to Writeups
+                </a>
+
+                <div class="hero-content">
+                    <div class="hero-image" data-aos="fade-up" data-aos-duration="1000">
+                        <img src="../img/writeups/eviction.png" alt="Eviction" />
+                    </div>
+                    <h1 class="hero-heading" data-aos="fade-up" data-aos-duration="1200">Eviction</h1>
+                    <p class="writeup-meta" data-aos="fade-up" data-aos-duration="1400">
+                        <strong>Category:</strong> Cyber Defence Frameworks | <strong>Difficulty:</strong> Easy |
+                        <strong>Date:</strong> Apr 8, 2025
+                    </p>
+                    <p class="writeup-summary" data-aos="fade-up" data-aos-duration="1600">
+                        Unearth the monster from under your bed.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Writeup Content -->
+        <section id="writeup-content" class="writeup-content">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Introduction</h2>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    In the "Eviction" room on TryHackMe, we explored the tactics and techniques of the Advanced
+                    Persistent Threat group, APT28. This exercise involved analyzing their methods using the MITRE
+                    ATT&CK framework to understand and mitigate potential threats.
+                </p>
+
+                <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Task: Understanding the
+                    Adversary</h2>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    As a SOC analyst at E-corp, Sunny received intelligence about APT28 targeting similar organizations.
+                    Utilizing the MITRE ATT&CK Navigator, we identified the group's tactics, techniques, and procedures
+                    (TTPs) to ensure the network's security.
+                </p>
+
+                <h3 class="section-subtitle" data-aos="fade-right" data-aos-duration="1000">Key Findings:</h3>
+                <ul data-aos="fade-right" data-aos-duration="1200">
+                    <li><strong>Reconnaissance and Initial Access:</strong> APT28 employs <em>Spearphishing Links</em>
+                        to perform reconnaissance and gain initial access.</li>
+                    <li><strong>Resource Development:</strong> They may compromise <em>Email Accounts</em> during
+                        resource development.</li>
+                    <li><strong>Execution Techniques:</strong> The group uses <em>Malicious Files</em> and <em>Malicious
+                            Links</em> to execute code.</li>
+                    <li><strong>Scripting Interpreters:</strong> Tools like <em>PowerShell</em> and <em>Windows Command
+                            Shell</em> are utilized for execution.</li>
+                    <li><strong>Persistence Mechanisms:</strong> Modifications to <em>Registry Run Keys</em> help
+                        maintain persistence.</li>
+                    <li><strong>Defense Evasion:</strong> Execution of system binaries like <em>Rundll32</em> aids in
+                        evading defenses.</li>
+                    <li><strong>Discovery Techniques:</strong> Deployment of tools such as <em>tcpdump</em> indicates
+                        network sniffing activities.</li>
+                    <li><strong>Lateral Movement:</strong> Exploitation of <em>SMB/Windows Admin Shares</em> facilitates
+                        lateral movement.</li>
+                    <li><strong>Collection:</strong> Targeting information repositories like <em>SharePoint</em>
+                        suggests data collection efforts.</li>
+                    <li><strong>Command and Control:</strong> Utilization of <em>External Proxy</em> and <em>Multi-hop
+                            Proxy</em> techniques indicates attempts to exfiltrate data.</li>
+                </ul>
+
+                <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Conclusion</h2>
+                <p data-aos="fade-right" data-aos-duration="1200">
+                    Through this room, we gained insights into APT28's methodologies and learned how to leverage the
+                    MITRE ATT&CK framework to detect and mitigate such threats effectively. This exercise underscores
+                    the importance of proactive threat intelligence and continuous monitoring in safeguarding
+                    organizational assets.
+                </p>
+            </div>
+        </section>
+    </div> <!-- End Content Wrapper -->
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="../js/components.js"></script>
+    <script type="module" src="../js/main.js"></script>
+
+    <script>
+        AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("content").classList.add("fade-in-active");
+        });
+    </script>
+</body>
+
+</html>

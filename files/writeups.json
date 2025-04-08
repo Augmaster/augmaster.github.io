@@ -61,5 +61,14 @@
     "link": "pages/summit.html",
     "image": "img/writeups/summit.png",
     "description": "Can you chase a simulated adversary up the Pyramid of Pain until they finally back down?"
+  },
+  {
+    "title": "Eviction",
+    "category": "Cyber Defence Frameworks",
+    "difficulty": "Easy",
+    "date": "2025-04-08",
+    "link": "pages/eviction.html",
+    "image": "img/writeups/eviction.png",
+    "description": "Unearth the monster from under your bed."
   }
 ]
