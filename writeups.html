@@ -15,8 +15,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <script defer src="js/writeups.js"></script> <!-- Script to load writeups dynamically -->
-
+    <script defer src="js/writeups.js"></script>
   </head>
 
   <body>
@@ -31,11 +30,18 @@
           data-aos-delay="500"
           data-aos-duration="1000"
         >
-        <div class="hero-content">
-          <h1 class="hero-heading">Writeups</h1>
-            <span class="hero-heading-subtitle writeups-subtitle"
-              >Challenges are from <a href="https://tryhackme.com/r/hacktivities/challenges">TryHackMe Website</a></span
-            >
+          <div class="hero-content">
+            <h1 class="hero-heading">Writeups</h1>
+            <span class="hero-heading-subtitle writeups-subtitle">
+              Challenges from multiple platforms: TryHackMe, RootMe, and 404CTF.
+            </span>
+            <div class="platform-buttons">
+              <button class="platform-filter-btn" data-platform="all">All</button>
+              <button class="platform-filter-btn" data-platform="TryHackMe">TryHackMe</button>
+              <button class="platform-filter-btn" data-platform="RootMe">RootMe</button>
+              <button class="platform-filter-btn" data-platform="404CTF">404CTF</button>
+            </div>
+
             <div>
               <a href="index.html#home" class="btn">Portfolio</a>
               <a href="index.html#contact" class="btn btn-white">Contact Me</a>
@@ -43,10 +49,10 @@
           </div>
           <div class="hero-iframe">
             <iframe
-            id="tryhackme-badge"
-            src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=3161198"
-            style="border: none;"
-          ></iframe>
+              id="tryhackme-badge"
+              src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=3161198"
+              style="border: none;"
+            ></iframe>
           </div>
         </div>
       </div>
@@ -58,29 +64,39 @@
         <div class="writeups-title" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
           <h2 class="title">Recent Challenges</h2>
         </div>
+
         <div class="filter-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+          <label for="platform-filter">Platform:</label>
+          <select id="platform-filter">
+            <option value="all">All Platforms</option>
+            <option value="TryHackMe">TryHackMe</option>
+            <option value="RootMe">RootMe</option>
+            <option value="404CTF">404CTF</option>
+          </select>
+
           <label for="category-filter">Category:</label>
           <select id="category-filter">
             <option value="all">All Categories</option>
           </select>
-        
+
           <label for="difficulty-filter">Difficulty:</label>
           <select id="difficulty-filter">
             <option value="all">All Levels</option>
           </select>
         </div>
+
         <div class="writeups-grid" id="writeups-container">
           <!-- JavaScript will load writeups here -->
         </div>
       </div>
     </section>
 
-    <div id="footer-placeholder"></div> <!-- Footer will be injected here -->
+    <div id="footer-placeholder"></div>
 
     <div id="goToTop" class="goToTop">
       <a href="#home">
-        <img src="img/icons/arrow_up.svg" alt="Back to top"
-      /></a>
+        <img src="img/icons/arrow_up.svg" alt="Back to top" />
+      </a>
     </div>
 
     <script
@@ -91,5 +107,33 @@
     ></script>
     <script src="../js/components.js"></script>
     <script type="module" src="js/main.js"></script>
+
+    <style>
+      .platform-icons {
+        margin-top: 1rem;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .platform-filter-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.25rem;
+        transition: transform 0.2s ease;
+      }
+
+      .platform-filter-btn:hover {
+        transform: scale(1.1);
+      }
+
+      .platform-filter-btn img {
+        height: 40px;
+        width: 40px;
+        border-radius: 5px;
+      }
+    </style>
   </body>
 </html>

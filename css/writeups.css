@@ -415,3 +415,25 @@ ul li {
     }
 }
 
+.platform-buttons {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .platform-filter-btn {
+    font-size: 1.2rem; /* Increase text size */
+    padding: 0.5rem 1rem;
+    border: 2px solid #444;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .platform-filter-btn:hover,
+  .platform-filter-btn.active {
+    background-color: #444;
+    color: #fff;
+  }
