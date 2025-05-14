@@ -79,5 +79,14 @@
     "link": "pages/prioritise.html",
     "image": "img/writeups/prioritise.png",
     "description": "In this challenge you will explore some less common SQL Injection techniques."
+  },
+  {
+    "title": "Hammer",
+    "category": "Web Hacking",
+    "difficulty": "Medium",
+    "date": "2025-05-08",
+    "link": "pages/hammer.html",
+    "image": "img/writeups/hammer.png",
+    "description": "Use your exploitation skills to bypass authentication mechanisms on a website and get RCE."
   }
 ]
