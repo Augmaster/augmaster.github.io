@@ -28,7 +28,7 @@
   },
   {
     "title": "Pickle Rick",
-    "category": "Web Hacking Fundamentals",
+    "category": "Web Hacking",
     "difficulty": "Easy",
     "date": "2025-02-08",
     "link": "pages/pickle_rick.html",
@@ -37,7 +37,7 @@
   },
   {
     "title": "Bricks Heist",
-    "category": "Web Hacking Fundamentals",
+    "category": "Web Hacking",
     "difficulty": "Easy",
     "date": "2025-02-09",
     "link": "pages/bricks_heist.html",
@@ -70,5 +70,14 @@
     "link": "pages/eviction.html",
     "image": "img/writeups/eviction.png",
     "description": "Unearth the monster from under your bed."
+  },
+  {
+    "title": "Prioritise",
+    "category": "Web Hacking",
+    "difficulty": "Medium",
+    "date": "2025-05-10",
+    "link": "pages/prioritise.html",
+    "image": "img/writeups/prioritise.png",
+    "description": "In this challenge you will explore some less common SQL Injection techniques."
   }
 ]

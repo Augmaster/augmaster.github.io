@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WRITEUP_TITLE</title>
+
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/media.css" />
+  <link rel="stylesheet" href="../css/writeups.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" crossorigin="anonymous" />
+
+  <script defer src="../js/writeups.js"></script>
+</head>
+
+<body class="left-aligned-hero">
+
+  <!-- Navbar Placeholder -->
+  <div id="nav-placeholder"></div>
+
+  <!-- Content Wrapper -->
+  <div id="content" class="fade-in">
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container container-lg">
+        <a href="../writeups.html" class="back-arrow" data-aos="fade-right" data-aos-duration="1000">← Back to Writeups</a>
+        
+        <div class="hero-content">
+          <div class="hero-image" data-aos="fade-up" data-aos-duration="1000">
+            <img src="WRITEUP_IMAGE_PATH" alt="WRITEUP_TITLE" />
+          </div>
+          <h1 class="hero-heading" data-aos="fade-up" data-aos-duration="1200">WRITEUP_TITLE</h1>
+          <p class="writeup-meta" data-aos="fade-up" data-aos-duration="1400">
+            <strong>Category:</strong> CHALLENGE_CATEGORY | 
+            <strong>Difficulty:</strong> DIFFICULTY_LEVEL | 
+            <strong>Date:</strong> DATE
+          </p>
+          <p class="writeup-summary" data-aos="fade-up" data-aos-duration="1600">
+            SHORT_DESCRIPTION
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Writeup Content -->
+    <section id="writeup-content" class="writeup-content">
+      <div class="container">
+
+        <!-- Template Block: Copy and paste as needed -->
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">SECTION_TITLE</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          PARAGRAPH_TEXT
+        </p>
+
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>
+            COMMAND_OR_CODE_SNIPPET
+          </code>
+        </pre>
+
+        <img src="IMAGE_PATH" alt="DESCRIPTION" width="800" data-aos="fade-right" data-aos-duration="1000">
+
+        <ul data-aos="fade-right" data-aos-duration="1300">
+          <li>LIST_ITEM_1</li>
+          <li>LIST_ITEM_2</li>
+        </ul>
+
+        <!-- Add more sections as needed -->
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Conclusion</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          FINAL_SUMMARY_TEXT
+        </p>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="../js/components.js"></script>
+  <script type="module" src="../js/main.js"></script>
+
+  <script>
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("content").classList.add("fade-in-active");
+    });
+  </script>
+</body>
+</html>

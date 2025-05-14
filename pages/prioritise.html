@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prioritise</title>
+
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/media.css" />
+  <link rel="stylesheet" href="../css/writeups.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" crossorigin="anonymous" />
+
+  <script defer src="../js/writeups.js"></script>
+</head>
+
+<body class="left-aligned-hero">
+
+  <!-- Navbar Placeholder -->
+  <div id="nav-placeholder"></div>
+
+  <!-- Content Wrapper -->
+  <div id="content" class="fade-in">
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container container-lg">
+        <a href="../writeups.html" class="back-arrow" data-aos="fade-right" data-aos-duration="1000">← Back to Writeups</a>
+        
+        <div class="hero-content">
+          <div class="hero-image" data-aos="fade-up" data-aos-duration="1000">
+            <img src="../img/writeups/prioritise.png" alt="Prioritise" />
+          </div>
+          <h1 class="hero-heading" data-aos="fade-up" data-aos-duration="1200">Prioritise</h1>
+          <p class="writeup-meta" data-aos="fade-up" data-aos-duration="1400">
+            <strong>Category:</strong> Web Hacking | 
+            <strong>Difficulty:</strong> Medium | 
+            <strong>Date:</strong> May 10, 2025
+          </p>
+          <p class="writeup-summary" data-aos="fade-up" data-aos-duration="1600">
+            In this challenge you will explore some less common SQL Injection techniques.
+          </p>
+        </div>
+      </div>
+    </section>
+
+ <!-- Keep the original template you've provided. We'll now complete the writeup content below -->
+
+<!-- Writeup Content -->
+<section id="writeup-content" class="writeup-content">
+  <div class="container">
+
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Discovery</h2>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      For the first part of this challenge, we explore the service using a classic <b><i>nmap</i></b> scan:
+    </p>
+
+    <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+      <code>
+        nmap -A -T4 -p0- -o scan -vv 10.10.240.9
+      </code>
+    </pre>
+
+    <p data-aos="fade-right" data-aos-duration="1200">It returns 2 open ports:</p>
+
+    <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+      <code>
+        PORT   STATE SERVICE REASON         VERSION<br>
+        22/tcp open  ssh     syn-ack ttl 63 OpenSSH 8.2p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux; protocol 2.0)<br>
+        80/tcp open  http    syn-ack ttl 62 Apache httpd 2.4.41
+      </code>
+    </pre>
+
+    <p data-aos="fade-right" data-aos-duration="1200">
+      The application is a basic to-do app hosted on the web interface at port 80. The main feature is a form that allows users to input a <i>title</i> and <i>due date</i> for tasks. These are added to a table that supports sorting by different fields. Initial fuzzing attempts in the <code>title</code> field didn't yield any visible SQL injection vectors.
+    </p>
+
+    <p data-aos="fade-right" data-aos-duration="1200">
+      However, observing the application behavior when using the sorting functionality via the “order by” dropdown revealed something interesting. The application makes GET requests like:
+    </p>
+
+    <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+      <code>
+        http://&lt;target-ip&gt;/?order=title
+      </code>
+    </pre>
+
+    <p data-aos="fade-right" data-aos-duration="1200">
+      This indicated that the <code>order</code> parameter is being directly used in an SQL <code>ORDER BY</code> clause, potentially like this:
+    </p>
+
+    <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+      <code>
+        SELECT * FROM tasks ORDER BY 'user_input'
+      </code>
+    </pre>
+
+    <p data-aos="fade-right" data-aos-duration="1200">
+      This gives us a vector for a Boolean-Based Blind SQL Injection by manipulating the order parameter.
+    </p>
+
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Exploitation</h2>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      The injection method involves creating a conditional SQL clause that alters sorting behavior depending on whether a character of the flag matches our guess. For example:
+    </p>
+
+    <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+      <code>
+        http://&lt;target-ip&gt;/?order=(CASE WHEN (SELECT SUBSTRING(flag,1,1) <br> FROM flag)='f' THEN title ELSE date END)
+      </code>
+    </pre>
+
+    <p data-aos="fade-right" data-aos-duration="1200">
+      If the guess is correct, the tasks are ordered by <code>title</code>; if not, by <code>date</code>. By comparing the page response with a known-good response (e.g., ordering by title directly), we can infer the correct character.
+    </p>
+
+    <p data-aos="fade-right" data-aos-duration="1200">
+      A Python script helped automate this discovery by iterating 
+      through characters and checking the page’s behavior.
+    </p>
+
+    <p data-aos="fade-right" data-aos-duration="1200">
+      Running the script, we were able to extract the flag one character at a time.
+    </p>
+
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Flag</h2>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      <strong>flag{65f2f8cfd53d59422f3d7cc62cc8fdcd}</strong>
+    </p>
+
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Lessons Learned</h2>
+    <ul data-aos="fade-right" data-aos-duration="1300">
+      <li>SQL Injection can exist in less obvious places, such as ORDER BY clauses.</li>
+      <li>Even without error messages or reflected input, side-channel observations like UI behavior can enable blind injection.</li>
+      <li>Automating repetitive attacks with concurrency speeds up the exploitation process significantly.</li>
+      <li>Reviewing other writeups and comparing behavior can reveal subtle clues for exploitation.</li>
+    </ul>
+
+    <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Conclusion</h2>
+    <p data-aos="fade-right" data-aos-duration="1200">
+      This challenge demonstrates that even a simple to-do list web app can contain subtle but severe security flaws. By analyzing the application’s behavior, identifying unexpected injection points, and crafting a tailored Boolean-Based Blind SQL Injection, we were able to exfiltrate the flag successfully. A good reminder that thorough testing must include sorting, filtering, and other non-obvious inputs.
+    </p>
+  </div>
+</section>
+
+  </div>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="../js/components.js"></script>
+  <script type="module" src="../js/main.js"></script>
+
+  <script>
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("content").classList.add("fade-in-active");
+    });
+  </script>
+</body>
+</html>
