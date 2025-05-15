@@ -101,6 +101,15 @@
           "link": "pages/mission1.html",
           "image": "img/writeups/mission1/mission1.png",
           "description": "You have been mandated by Neoxis Laboratories to recover their compromised data."
+        },
+        {
+          "title": "Mission 2 - SOC Analysis",
+          "category": "Blue Teaming",
+          "difficulty": "Medium",
+          "date": "2025-04-24",
+          "link": "pages/mission2.html",
+          "image": "img/writeups/mission2/mission2.png",
+          "description": "The allied organisation Nuclear Punk, which was attacked by the entity, has provided us with its logs to help us understand the techniques used by the attackers, as well as the various compromise vectors exploited"
         }
       ],
       "404CTF": [
