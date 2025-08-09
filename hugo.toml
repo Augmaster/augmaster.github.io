@@ -1,0 +1,35 @@
+baseURL = "https://augmaster.github.io/"
+languageCode = "en-us"
+title = "augmaster writeups"
+theme = "terminal"
+pagination.paperSize = 10
+
+# Terminal uses custom Chroma CSS — keep classes on
+[markup.highlight]
+  noClasses = false
+
+[params]
+  contentTypeName = "posts"
+  centerTheme = true
+  fullWidthTheme = false
+  showMenuItems = 3
+  themeColor = "orange" # try: "orange", "blue", "green", "red", "pink"
+
+[languages.en]
+  languageName = "English"
+  title = "augmaster writeups"
+  [languages.en.params.logo]
+    logoText = "augmaster"
+    logoHomeLink = "/"
+
+# Example top menu
+[languages.en.menu]
+  [[languages.en.menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about"
+  [[languages.en.menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts"
+
