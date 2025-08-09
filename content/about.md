@@ -21,12 +21,11 @@ With hands-on expertise in penetration testing, bug bounty methodologies, revers
 ### Offensive Security & Red Team Operations
 - **Web Application Security:** XSS (Stored, Reflected, DOM-based), SQL injection, CSRF, SSRF, XXE, LFI/RFI, IDOR, authentication bypasses
 - **Network Penetration Testing:** Nmap reconnaissance, service enumeration, vulnerability scanning, lateral movement, privilege escalation
-- **Active Directory Attacks:** Kerberoasting, ASREPRoast, Golden/Silver tickets, DCSync, Pass-the-Hash, bloodhound analysis
-- **Command & Control:** Metasploit framework, Cobalt Strike, custom C2 development, beacon deployment, persistence mechanisms
+- **Command & Control:** Metasploit framework, custom C2 development, persistence mechanisms
 - **Social Engineering:** Phishing campaigns, OSINT gathering, pretexting, physical security assessments
 
 ### Malware Analysis & Reverse Engineering
-- **Static Analysis:** Ghidra, IDA Pro, x64dbg, strings analysis, packer detection, entropy analysis, import/export table inspection
+- **Static Analysis:** Ghidra, x64dbg, strings analysis, packer detection, entropy analysis, import/export table inspection
 - **Dynamic Analysis:** Frida instrumentation, API hooking, behavioral monitoring, sandbox environments (Cuckoo, Joe Sandbox)
 - **Assembly Languages:** x86/x64 Assembly, ARM architecture understanding, shellcode analysis and development
 - **Evasion Techniques:** Anti-VM detection, process hollowing, DLL injection, sandbox evasion, obfuscation methods
@@ -37,7 +36,7 @@ With hands-on expertise in penetration testing, bug bounty methodologies, revers
 - **GCP Security:** Identity & Access Management, Compute Engine security, Cloud Storage permissions, Security Command Center
 - **Container Security:** Docker security scanning, Kubernetes RBAC, pod security policies, network segmentation
 - **Infrastructure as Code:** Terraform security best practices, CloudFormation security, policy as code implementation
-- **DevSecOps:** CI/CD pipeline security, SAST/DAST integration, vulnerability management automation
+- **DevSecOps:** CI/CD pipeline security, vulnerability management automation
 
 ### Digital Forensics & Incident Response
 - **Memory Forensics:** Volatility framework, memory dump analysis, process investigation, rootkit detection
