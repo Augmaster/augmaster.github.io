@@ -1,6 +1,6 @@
 baseURL = "https://augmaster.github.io/"
 languageCode = "en-us"
-title = "augmaster writeups"
+title = "Augustin Renard"
 theme = "terminal"
 pagination.paperSize = 10
 
@@ -13,7 +13,7 @@ pagination.paperSize = 10
   centerTheme = true
   fullWidthTheme = false
   showMenuItems = 3
-  themeColor = "orange" # try: "orange", "blue", "green", "red", "pink"
+  themeColor = "blue" # try: "orange", "blue", "green", "red", "pink"
 
 [languages.en]
   languageName = "English"
@@ -30,6 +30,6 @@ pagination.paperSize = 10
     url = "/about"
   [[languages.en.menu.main]]
     identifier = "posts"
-    name = "Posts"
-    url = "/posts"
+    name = "Writeups"
+    url = "/writeups"
 
